@@ -1,0 +1,86 @@
+\documentclass[12pt]{article}
+%\usepackage[utf8x]{inputenc}
+
+%\usepackage{geometry}
+%\geometry{letterpaper}
+
+%opening
+\title{Game Engine Proposal}
+\author{By Cedric Wienold,\\
+California Polytechnic Unversity,\\
+San Luis Obispo, CA\\\\
+Advised by Dr. Michael Haungs\\\\}
+\date{2011-02-12}
+
+\begin{document}
+
+  \maketitle
+
+  \thispagestyle{empty}
+
+  \newpage
+
+  \section{Introduction}
+    \subsection{Motivation}
+      Much of the work behind creating a game is building an infrastructure upon which it can operate. The window, graphics backend, sound, and rudimentary game logic all take excessive time to create, detracting from the original vision of the game. My motivation for creating this game engine is to eliminate this infrastructure requirement and allow programmers to get straight to programming their visions.
+    \subsection{Description}
+      This game engine will be built using C++. Ideally, the end product will be a dynamic library, which will allow further development by other programmers in the future. Game programmers would link this into their products and use the provided functions to build their games.
+  \section{Game Engine}
+    The API that the programmer will be exposed to will be thoroughly documented. Available functions include the following:
+
+    \begin{itemize}
+      \item Initializing and shutting down the engine
+      \item Creating and destroying the game window
+      \item Creating and destroying visual objects
+      \item Creating and destroying sounds
+      \item Forming rudimentary game logic
+      \item Creating an interface to hardware for input
+      \item Creating a platform allowing networked communications between clients
+    \end{itemize}
+
+  \section{Design}
+    The design of the game engine will be similar to the following, with changes allowable, with the consent of the advisor, in the interest of ease of programming and extensibility.
+
+    \subsection{Class Draft}
+      \begin{itemize}
+	\item GameEngine
+	\begin{itemize}
+	  \item GameWindow
+	  \item GameObject
+	  \begin{itemize}
+	    \item VisibleGameObject
+	    \item LogicalGameObject
+	    \begin{itemize}
+	      \item GameSound
+	    \end{itemize}
+	  \end{itemize}
+	  \item GameNetwork
+	  \item GameInput
+	\end{itemize}
+      \end{itemize}
+
+  \section{Implementation}
+    The game engine will be implemented using C++. To maintain cross-platform compatibility, SDL will be used as the backend of the game functions.
+
+  \section{Evaluation}
+    A complete project, receiving a passing grade by the Advisor of at minimum a C, is made up of completion of the Documentation, a Game Engine, and a Demo to prove its Functionality.\\
+
+    The first quarter of the senior project will be devoted to documentation of the game engine. I will create documentation describing what the game engine includes and how to use it.
+
+    The second quarter will involved implementing the game engine as the documentation has stated, and making any changes to the documentation that are required. A demo will also be created.
+
+  \section{Related Work}
+    There is no shortage of 2-d game engines available to study from. To name a few:
+    \begin{itemize}
+      \item ClanLib Game Engine
+      \item ORX Game Engine
+      \item Game Programming Wiki's SDL Tutorials
+    \end{itemize}
+
+  \section{Future Work}
+    This game engine will have an easily pluggable interface, which a future program may use to extend functionality. For example, artificial intelligence modules may be added at the programmer's will. As this will be a completely open source project, programmers may redesign any piece of it at will for the given needs.
+
+  \subsection{Conclusion}
+    It is my hope that this project will help many programmers bring to light their visions for new games quickly and easily. Using SDL and other suitable libraries, programmers should be able to create games for any platform.
+
+\end{document}
