@@ -106,7 +106,7 @@ int main() {
 		grid.setObjects(points);
 		clock_gettime(CLOCK_REALTIME, &ts_finish);
 		finish = time(NULL);
-		cout << "With " << numPoints << "points, grid creation took " << (long long)(ts_finish.tv_nsec - ts_start.tv_nsec) << " time units\n";
+		cout << "With " << numPoints << "points, grid creation took " << ((long long)ts_finish.tv_nsec - (long long)ts_start.tv_nsec)/1000000 << " time units\n";
 	}
 	
 	return 0;
