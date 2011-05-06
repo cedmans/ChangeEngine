@@ -11,16 +11,22 @@
 #ifndef GAMEWINDOW_HPP_
 #define GAMEWINDOW_HPP_
 
+//Forward declaration to manage circular dependency
+class ChangeEngine;
+
 class GameWindow {
    private:
-      virtual ~GameWindow();
-      
       static GameWindow* pInstance;
+      
+      ChangeEngine* engine;
       
       int width, height, x, y;
    
    public:
-      static GameWindow* Initiate(int w, int h, int x, int y);
+		GameWindow();
+      virtual ~GameWindow();
+      
+      static GameWindow* Initiate(ChangeEngine* engine, int w, int h, int x, int y);
       void Destroy();
 };
 

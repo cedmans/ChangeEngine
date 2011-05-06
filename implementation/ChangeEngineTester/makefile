@@ -2,6 +2,7 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
+vpath %.a ../ChangeEngine/
 -include ./makefile.init
 
 RM := rm -rf
@@ -40,7 +41,7 @@ endif
 all: ChangeEngineTester
 
 # Tool invocations
-ChangeEngineTester: $(OBJS) $(USER_OBJS)
+ChangeEngineTester: $(OBJS) $(USER_OBJS) libChangeEngine.a
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C++ Linker'
 	g++ -L"../ChangeEngine" -o"./ChangeEngineTester" $(OBJS) $(USER_OBJS) $(LIBS)

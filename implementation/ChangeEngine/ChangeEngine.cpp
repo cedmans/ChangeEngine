@@ -20,12 +20,14 @@ ChangeEngine::ChangeEngine() {
    window = NULL;
 }
 
-ChangeEngine::~ChangeEngine() {}
+ChangeEngine::~ChangeEngine() {
+	
+	if (window != NULL) {
+		
+		delete window;
+	}
+}
 
-/**
- * Returns the instance of this singleton.
- * @return this class's instance.
- */
 ChangeEngine* ChangeEngine::Initiate(void) {
 
    if (pInstance == NULL) {
@@ -35,7 +37,7 @@ ChangeEngine* ChangeEngine::Initiate(void) {
       #endif
       pInstance = new ChangeEngine();
    }
-
+   
    #ifdef DEBUG
       fprintf(stdout,"ChangeEngine Singleton Returned\n");
    #endif
@@ -53,7 +55,6 @@ void ChangeEngine::Destroy(void) {
       #endif
 
       window->Destroy();
-      window = NULL;
    }
    else {
       
@@ -70,6 +71,11 @@ void ChangeEngine::Destroy(void) {
       #endif
 
       delete pInstance;
+      
+      if (pInstance != NULL)
+			fprintf(stderr,"engine instance NOT NULL\n");
+		else
+			fprintf(stderr,"engine IS REALLY NULL\N");
       pInstance = NULL;
    }
    else {
@@ -82,24 +88,14 @@ void ChangeEngine::Destroy(void) {
 
 bool ChangeEngine::CreateWindow(int w, int h) {
 
-   width = w;
-   height = h;
-   xpos = 0;
-   ypos = 0;
-
-   window = GameWindow::Initiate(w,h,0,0);
+   window = GameWindow::Initiate(pInstance,w,h,0,0);
 
    return true;
 }
 
 bool ChangeEngine::CreateWindow(int w, int h, int x, int y) {
 
-   width = w;
-   height = h;
-   xpos = x;
-   ypos = y;
-
-   window = GameWindow::Initiate(w,h,x,y);
+   window = GameWindow::Initiate(pInstance,w,h,x,y);
 
    return true;
 }

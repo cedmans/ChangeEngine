@@ -1,6 +1,7 @@
-SRC = ChangeEngine.cpp GameWindow.cpp
+SRC = $(wildcard *.cpp) #ChangeEngine.cpp GameWindow.cpp
 OBJ = $(SRC:.cpp=.o)
 OUT = libChangeEngine.a
+DEP = $(SRC:.cpp=.d)
 
 # includes
 INCLUDES = -I.
@@ -26,7 +27,7 @@ default: $(OUT)
 all: $(OUT)
 
 %.d: %.cpp
-	set -e; rm -f $@; \
+	@set -e; rm -f $@; \
 	$(CC) -MM $(CPPFLAGS) $< > $@.$$$$; \
 	sed 's,\($*\)\.o[ :]*,\1.o $@ : ,g' < $@.$$$$ > $@; \
 	rm -f $@.$$$$
@@ -40,4 +41,4 @@ $(OUT): $(OBJ) $(DPN)
 	ar rcs $(OUT) $(OBJ)
 
 clean:
-	rm -f *.d $(OBJ) $(OUT) Makefile.bak
+	rm -f $(DEP) $(OBJ) $(OUT) Makefile.bak

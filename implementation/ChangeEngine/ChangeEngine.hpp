@@ -20,21 +20,62 @@
  */
 class ChangeEngine {
    public:
+      
+      /**
+       * Construct the engine with a null window.
+       */
+      ChangeEngine();
+      
+      /**
+       * Doesn't do anything yet.
+       */
+      virtual ~ChangeEngine();
+
+      /**
+       * Initiates the engine if it is not already initiated and returns a pointer to its singleton.
+       * @return A pointer to the game engine object, or NULL on failure.
+       */
       static ChangeEngine* Initiate();
+      
+      /**
+       * Shuts down the game engine and removes it from memory.
+       * This function will make every effort to detect leftover engine-created objects
+       * and destroy them before exiting.
+       */
       void Destroy();
 
       // Publicize important game engine objects
+      
+      /**
+       * Return the game engine's window.
+       * @return The game engine's window, or NULL if it does not exist.
+       */
       GameWindow* getWindow();
 
    private:
-      ChangeEngine();
-      virtual ~ChangeEngine();
+      
+      /**
+       * The game engine's singleton.
+       */
       static ChangeEngine* pInstance;
 
+      /**
+       * Create the game engine's window with the given width and heigh at (0,0).
+       * @param w The window's width.
+       * @param h The window's height.
+       * @return True if creation was successful. False otherwise.
+       */
       bool CreateWindow(int w, int h);
+
+      /**
+       * Create the game engine's window with the given width and heigh at (x,y).
+       * @param w The window's width.
+       * @param h The window's height.
+       * @param x The x coordinate of the window on the screen.
+       * @param y The y coordinate of the window on the screen.
+       * @return True if creation was successful. False otherwise.
+       */
       bool CreateWindow(int w, int h, int x, int y);
-      
-      int width, height, xpos, ypos;
 
       GameWindow *window;
 };

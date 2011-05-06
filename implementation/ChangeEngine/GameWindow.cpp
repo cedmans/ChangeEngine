@@ -6,15 +6,15 @@
  */
 
 #ifdef DEBUG
-    #include <stdlib.h>
+	#include <stdio.h>
 #endif
 
 #include "GameWindow.hpp"
-#include <stdio.h>
+#include <stdlib.h>
 
 GameWindow* GameWindow::pInstance = NULL;
 
-GameWindow* GameWindow::Initiate(int w, int h, int x, int y) {
+GameWindow* GameWindow::Initiate(ChangeEngine* engine, int w, int h, int x, int y) {
       
    if (pInstance == NULL) {
       
@@ -51,6 +51,8 @@ void GameWindow::Destroy() {
       #endif
    }
 }
+
+GameWindow::GameWindow() {}
 
 GameWindow::~GameWindow() {
    
