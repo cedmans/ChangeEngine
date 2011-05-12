@@ -13,8 +13,5 @@ ChangeEngineTester: main.cpp ChangeEngine.hpp libChangeEngine.a
 clean:
 	rm -f ChangeEngineTester
 
-test: ChangeEngineTester
-	valgrind ./ChangeEngineTester
-
 run: ChangeEngineTester
 	./$<
