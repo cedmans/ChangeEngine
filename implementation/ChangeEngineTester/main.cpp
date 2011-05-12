@@ -13,11 +13,13 @@ using namespace std;
 
 int main(int argc, char **argv) {
 
-   ChangeEngine* engine = ChangeEngine::Initiate();
+   ChangeEngine* engine = NULL;
+   
+   engine = ChangeEngine::Initiate();
 
-   cout << "Engine: " << engine << endl;
-
-   engine->Destroy();
+   engine->CreateWindow(640,480);
+   
+   ChangeEngine::Destroy();
 
    return(EXIT_SUCCESS);
 }

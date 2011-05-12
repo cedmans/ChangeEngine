@@ -1,4 +1,4 @@
-SRC = $(wildcard *.cpp) #ChangeEngine.cpp GameWindow.cpp
+SRC = $(wildcard *.cpp)
 OBJ = $(SRC:.cpp=.o)
 OUT = libChangeEngine.a
 DEP = $(SRC:.cpp=.d)
@@ -13,7 +13,7 @@ CPPFLAGS = -g -Wall
 CC = g++
 
 #library paths
-LIBS =
+LIBS = -lSDL
 
 # compiler flags
 LDFLAGS = -g

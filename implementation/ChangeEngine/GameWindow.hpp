@@ -11,23 +11,33 @@
 #ifndef GAMEWINDOW_HPP_
 #define GAMEWINDOW_HPP_
 
+#include "SDL/SDL.h"
+
 //Forward declaration to manage circular dependency
 class ChangeEngine;
 
 class GameWindow {
    private:
       static GameWindow* pInstance;
-      
+
       ChangeEngine* engine;
-      
+
       int width, height, x, y;
-   
+
+      //Main screen surface
+      SDL_Surface* screen;
+
    public:
 		GameWindow();
-      virtual ~GameWindow();
+      ~GameWindow();
+
+      static GameWindow* Initiate(ChangeEngine* engine);
+      static void Destroy();
+
+      int CreateWindow(int x, int y, int width, int height);
       
-      static GameWindow* Initiate(ChangeEngine* engine, int w, int h, int x, int y);
-      void Destroy();
+      //Expose variables
+      SDL_Surface* getScreen();
 };
 
 #endif /* GAMEWINDOW_HPP_ */

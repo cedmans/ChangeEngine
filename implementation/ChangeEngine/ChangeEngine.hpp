@@ -20,44 +20,25 @@
  */
 class ChangeEngine {
    public:
-      
+
       /**
        * Construct the engine with a null window.
        */
       ChangeEngine();
-      
-      /**
-       * Doesn't do anything yet.
-       */
-      virtual ~ChangeEngine();
 
       /**
        * Initiates the engine if it is not already initiated and returns a pointer to its singleton.
        * @return A pointer to the game engine object, or NULL on failure.
        */
       static ChangeEngine* Initiate();
-      
+
       /**
        * Shuts down the game engine and removes it from memory.
        * This function will make every effort to detect leftover engine-created objects
        * and destroy them before exiting.
        */
-      void Destroy();
+      static void Destroy();
 
-      // Publicize important game engine objects
-      
-      /**
-       * Return the game engine's window.
-       * @return The game engine's window, or NULL if it does not exist.
-       */
-      GameWindow* getWindow();
-
-   private:
-      
-      /**
-       * The game engine's singleton.
-       */
-      static ChangeEngine* pInstance;
 
       /**
        * Create the game engine's window with the given width and heigh at (0,0).
@@ -65,7 +46,7 @@ class ChangeEngine {
        * @param h The window's height.
        * @return True if creation was successful. False otherwise.
        */
-      bool CreateWindow(int w, int h);
+      int CreateWindow(int w, int h);
 
       /**
        * Create the game engine's window with the given width and heigh at (x,y).
@@ -75,7 +56,22 @@ class ChangeEngine {
        * @param y The y coordinate of the window on the screen.
        * @return True if creation was successful. False otherwise.
        */
-      bool CreateWindow(int w, int h, int x, int y);
+      int CreateWindow(int x, int y, int w, int h);
+
+      // Publicize important game engine objects
+
+      /**
+       * Return the game engine's window.
+       * @return The game engine's window, or NULL if it does not exist.
+       */
+      GameWindow* getWindow();
+
+   private:
+
+      /**
+       * The game engine's singleton.
+       */
+      static ChangeEngine* pInstance;
 
       GameWindow *window;
 };
