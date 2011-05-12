@@ -29,19 +29,19 @@ GameWindow* GameWindow::Initiate(ChangeEngine* engine) {
 
       pInstance = new GameWindow();
    }
-//~ 
-//~ //   result = SDL_Init(SDL_INIT_EVERYTHING);
-//~ 
-   //~ if (result != EENGINE_SUCCESS) {
-//~ 
-      //~ #ifdef DEBUG
-         //~ fprintf(stderr,"SDL Initialization FAILED.\n");
-      //~ #endif
-//~ 
-      //~ delete pInstance;
-      //~ return NULL;
-   //~ }
-//~ 
+
+   result = SDL_Init(SDL_INIT_EVERYTHING);
+
+   if (result != EENGINE_SUCCESS) {
+
+      #ifdef DEBUG
+         fprintf(stderr,"SDL Initialization FAILED.\n");
+      #endif
+
+      delete pInstance;
+      return NULL;
+   }
+
    pInstance->engine = engine;
 
    return pInstance;
@@ -57,10 +57,10 @@ void GameWindow::Destroy() {
 
       if (pInstance->getScreen() != NULL) {
 
-//         SDL_FreeSurface(pInstance->getScreen());
+         SDL_FreeSurface(pInstance->getScreen());
       }
 
-//      SDL_Quit();
+      SDL_Quit();
       delete pInstance;
    }
    #ifdef DEBUG
