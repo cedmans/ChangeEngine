@@ -4,14 +4,14 @@
  * @file ChangeEngine.hpp
  * Game engine which handles most game elements.
  *
- * @date May 3, 2011
+ * @date May 12, 2011
  * @author Cedric Wienold
  */
 
 #ifndef CHANGEENGINE_HPP_
 #define CHANGEENGINE_HPP_
 
-#define DEBUG
+#include "debug.hpp"
 
 #include "GameWindow.hpp"
 

@@ -4,7 +4,7 @@
  * @file GameWindow.hpp
  * Game window which creates and controls the output window for the game.
  *
- * @date May 3, 2011
+ * @date May 12, 2011
  * @author Cedric Wienold
  */
 
@@ -12,6 +12,8 @@
 #define GAMEWINDOW_HPP_
 
 #include "SDL/SDL.h"
+
+#include "debug.hpp"
 
 //Forward declaration to manage circular dependency
 class ChangeEngine;

@@ -1,7 +1,7 @@
 /**
  *  @file ChangeEngine.cpp
  *
- *  @date Feb 26, 2011
+ *  @date May 12, 2011
  *  @author Cedric Wienold
  */
 
@@ -23,6 +23,10 @@ ChangeEngine::ChangeEngine() {
 
 ChangeEngine* ChangeEngine::Initiate(void) {
 
+   #ifdef DEBUG
+   fprintf(stderr,"ChangeEngine: Initiate\n");
+   #endif
+
    if (pInstance == NULL) {
 
       #ifdef DEBUG
@@ -39,6 +43,10 @@ ChangeEngine* ChangeEngine::Initiate(void) {
 }
 
 void ChangeEngine::Destroy(void) {
+
+   #ifdef DEBUG
+   fprintf(stderr,"ChangeEngine: Destroy\n");
+   #endif
 
    // Clean up engine objects
    
@@ -67,40 +75,38 @@ void ChangeEngine::Destroy(void) {
 }
 
 int ChangeEngine::CreateWindow(int w, int h) {
-
-   window = GameWindow::Initiate(pInstance);
-//~ 
-   //~ int result = window->CreateWindow(0,0,w,h);
-//~ 
-   //~ if (window == NULL) {
-//~ 
-      //~ return EINITIATE_FAILED;
-   //~ }
-//~ 
-   //~ if (result != EENGINE_SUCCESS) {
-//~ 
-      //~ return EWINDOW_FAILED;
-   //~ }
-
-   return EENGINE_SUCCESS;
+   
+   return this->CreateWindow(0,0,w,h);
 }
 
 int ChangeEngine::CreateWindow(int x, int y, int w, int h) {
 
-   //~ window = GameWindow::Initiate(pInstance);
-//~ 
-   //~ if (window == NULL) {
-//~ 
-      //~ return EINITIATE_FAILED;
-   //~ }
-//~ 
-   //~ int result = window->CreateWindow(x,y,w,h);
-//~ 
-   //~ if (result != EENGINE_SUCCESS) {
-//~ 
-      //~ return EWINDOW_FAILED;
-   //~ }
-//~ 
+   #ifdef DEBUG
+   fprintf(stderr,"ChangeEngine: CreateWindow\n");
+   #endif
+   
+   window = GameWindow::Initiate(pInstance);
+
+   int result = window->CreateWindow(x,y,w,h);
+
+   if (window == NULL) {
+
+      #ifdef DEBUG
+      fprintf(stderr,"ChangeEngine: EINITIATE_FAILED\n");
+      #endif
+      
+      return EINITIATE_FAILED;
+   }
+
+   if (result != EENGINE_SUCCESS) {
+
+         #ifdef DEBUG
+         fprintf(stderr,"ChangeEngine: EWINDOW_FAILED\n");
+         #endif
+   
+         return EWINDOW_FAILED;
+   }
+
    return EENGINE_SUCCESS;
 }
 
