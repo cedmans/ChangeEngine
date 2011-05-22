@@ -10,7 +10,6 @@
 #endif
 
 #include "ChangeEngine.hpp"
-#include "errorcodes.hpp"
 #include <stdio.h>
 
 // Set singleton to null at start
@@ -27,6 +26,7 @@ ChangeEngine* ChangeEngine::Initiate(void) {
    fprintf(stderr,"ChangeEngine: Initiate\n");
    #endif
 
+   //Initiate ChangeEngine if it doesn't already exist
    if (pInstance == NULL) {
 
       #ifdef DEBUG
@@ -35,8 +35,15 @@ ChangeEngine* ChangeEngine::Initiate(void) {
       pInstance = new ChangeEngine();
    }
 
+   //Create event listener
+   if (pInstance->listener == NULL) {
+
+      pInstance->listener = new EventListener();
+   }
+
+
    #ifdef DEBUG
-      fprintf(stdout,"ChangeEngine: ChangeEngine Singleton Returned\n");
+      fprintf(stderr,"ChangeEngine: ChangeEngine Singleton Returned\n");
    #endif
 
    return pInstance;
@@ -74,20 +81,21 @@ void ChangeEngine::Destroy(void) {
    }
 }
 
-int ChangeEngine::CreateWindow(int w, int h) {
+int ChangeEngine::createWindow(int w, int h, int bpp) {
    
-   return this->CreateWindow(0,0,w,h);
+   return this->createWindow(0,0,w,h,bpp);
 }
 
-int ChangeEngine::CreateWindow(int x, int y, int w, int h) {
+int ChangeEngine::createWindow(int x, int y, int w, int h, int bpp) {
 
    #ifdef DEBUG
    fprintf(stderr,"ChangeEngine: CreateWindow\n");
    #endif
    
+   //Create game window
    window = GameWindow::Initiate(pInstance);
 
-   int result = window->CreateWindow(x,y,w,h);
+   int result = window->CreateWindow(x,y,w,h,bpp);
 
    if (window == NULL) {
 
@@ -113,4 +121,14 @@ int ChangeEngine::CreateWindow(int x, int y, int w, int h) {
 GameWindow* ChangeEngine::getWindow() {
 
    return window;
+}
+
+EventListener* ChangeEngine::getEventListener() {
+
+   return listener;
+}
+
+void ChangeEngine::setWindowCaption(const char* caption) {
+
+   SDL_WM_SetCaption(caption,NULL);
 }

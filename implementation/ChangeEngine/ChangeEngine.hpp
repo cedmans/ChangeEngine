@@ -14,6 +14,9 @@
 #include "debug.hpp"
 
 #include "GameWindow.hpp"
+#include "InputListener.hpp"
+#include "EventTypes.hpp"
+#include "errorcodes.hpp"
 
 /**
  * Main class of ChangeEngine which handles game elements.
@@ -44,9 +47,10 @@ class ChangeEngine {
        * Create the game engine's window with the given width and heigh at (0,0).
        * @param w The window's width.
        * @param h The window's height.
+       * @param bpp The window's color depth.
        * @return True if creation was successful. False otherwise.
        */
-      int CreateWindow(int w, int h);
+      int createWindow(int w, int h, int bpp);
 
       /**
        * Create the game engine's window with the given width and heigh at (x,y).
@@ -54,9 +58,10 @@ class ChangeEngine {
        * @param h The window's height.
        * @param x The x coordinate of the window on the screen.
        * @param y The y coordinate of the window on the screen.
+       * @param bpp The window's color depth.
        * @return True if creation was successful. False otherwise.
        */
-      int CreateWindow(int x, int y, int w, int h);
+      int createWindow(int x, int y, int w, int h, int bpp);
 
       // Publicize important game engine objects
 
@@ -66,6 +71,13 @@ class ChangeEngine {
        */
       GameWindow* getWindow();
 
+      /**
+       * TODO: Build functions to access listener without needing to return it here.
+       */
+      EventListener* getEventListener();
+
+      void setWindowCaption(const char* caption);
+
    private:
 
       /**
@@ -73,7 +85,15 @@ class ChangeEngine {
        */
       static ChangeEngine* pInstance;
 
+      /**
+       * Window for the game engine.
+       */
       GameWindow *window;
+
+      /**
+       * Event listener
+       */
+      EventListener *listener;
 };
 
 #endif /* CHANGEENGINE_H_ */

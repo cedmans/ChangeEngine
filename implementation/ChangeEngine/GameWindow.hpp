@@ -36,7 +36,7 @@ class GameWindow {
       static GameWindow* Initiate(ChangeEngine* engine);
       static void Destroy();
 
-      int CreateWindow(int x, int y, int width, int height);
+      int CreateWindow(int x, int y, int width, int height, int bpp);
       
       //Expose variables
       SDL_Surface* getScreen();

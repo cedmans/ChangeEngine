@@ -87,7 +87,7 @@ GameWindow::GameWindow() {
 
 GameWindow::~GameWindow() {}
 
-int GameWindow::CreateWindow(int x, int y, int width, int height) {
+int GameWindow::CreateWindow(int x, int y, int width, int height, int bpp) {
 
    #ifdef DEBUG
    fprintf(stderr,"GameWindow: CreateWindow\n");
@@ -99,7 +99,7 @@ int GameWindow::CreateWindow(int x, int y, int width, int height) {
    this->y = y;
 
    //Set up the screen
-   screen = SDL_SetVideoMode(width,height,32,SDL_SWSURFACE);
+   screen = SDL_SetVideoMode(width,height,bpp,SDL_SWSURFACE);
 
    if (screen == NULL) {
 
