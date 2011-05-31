@@ -38,7 +38,7 @@ Advised by Dr. Michael Haungs\\\\}
 
   \addcontentsline{toc}{section}{Abstract}
   \begin{abstract}
-    The goal of this project is to design a game engine which will provide the framework for fast, simple deployment of games. This project allows me to learn from several different game engine designs in order to create an engine concrete enough to allow programmers to work on game design rather than programming the structure of windows, graphics, sounds, et cetra, but abstract enough to give the programmer freedom to program a wide range of 2D games. The engine will be available as a static library programmed in C++, which gives the user the power to program in any language that can implement such a library. A major feature of this engine will be the pluggable functions which can be implemented by the user, for functions such as drawing, sound, and artificial intelligence.
+    We propose to design a game engine which will provide the framework for fast, simple deployment of games. We analyzed several different game engine designs to allow programmers to work on game design rather than programming the structure of windows, graphics, sounds, et cetera, but allow them to program a wide range of 2D games. The programmer will handle the logic of each interaction on his own, but trivial functions such as drawing, collision detection, and input will be handled by this engine. The engine is available as a static library programmed in C++, which gives the user the power to program in any language that can implement such a library. A major feature of this engine is pluggable functions which can be implemented by the user, such as artificial intelligence.
   \end{abstract}
   
   \newpage
@@ -46,9 +46,14 @@ Advised by Dr. Michael Haungs\\\\}
   \pagenumbering{arabic}
 
   \section{Introduction}
-    Introduction goes here. Forget latin. It bogs down the spell checker.
+    Game engines can be difficult to learn for a programmer who has just downloaded the libraries or source code for it. The main issues we see are that the programmer is expected to do a lot of work to get started: rudimentary operations like window creation and input detection can be hard to wrap one's mind around. Our goal is to look from a novice's point of view, with an engine which will hand-hold them through these operations until they feel able to extend my own engine's classes. We have no delusions of grandeur: If a programmer sufficiently experienced in game programming sees a need that we do not fulfill, he is free to overload it with his own code.
 
-  \section{Requirements}
+    We also feel that the basic logic of the program is the responsibility of whoever is programming the game. Our engine provides functions which are necessary to most games, namely collision detection, but the implementer of the engine is responsible for what happens between the objects our engine provides.
+
+  \section{Game Engine}
+    TODO: Write how to use
+
+  \section{Design and Implementation}
     ChangeEngine will fulfill the following software requirements:
 
 \begin{enumerate}
@@ -74,6 +79,13 @@ Advised by Dr. Michael Haungs\\\\}
     \end{enumerate}
 
   \end{enumerate}
+
+  \begin{enumerate}
+    \item SDL Usage
+    \item Collision Detection
+    \item Artificial Intelligence
+  \end{enumerate}
+
 \end{enumerate}
 
 
@@ -81,20 +93,15 @@ Advised by Dr. Michael Haungs\\\\}
   \section{Tools and Teamwork}
     This project will primarily be programmed by Cedric Wienold using various programming environments supporting C++ code. Teamwork will be limited to interviews with industry professionals concerning algorithms and class organization advice.
 
-  \section{Research}
+  \section{Analysis}
     Research will be conducted on the following areas, and methods and results will be included in the appenix.
 
-\begin{enumerate}
-  \item SDL Usage
-  \item Collision Detection
-  \item Artificial Intelligence
-\end{enumerate}
+  \section{Related Work}
 
+  \section{Conclusions}
 
   \section{Future Improvements}
     This project will remain open source for any programmer to extend and improve upon it. ChangeEngine will maintain a pluggable interface in many ways so that programmers need only design their own functions and pass them into the engine if they wish to use them. Artificial intelligence, collision detection, and input detection are all areas which programmers can design their own plug-ins for.
-
-  \section{Conclusions}
 
   \newpage
 
