@@ -51,6 +51,12 @@ class GameObject {
        * @return the depth of the object.
        */
       int getDepth();
+      
+      /**
+       * Destroy this object and its related avatar, if applicable.
+       * @param object the game object ot destroy.
+       */
+      static void Destroy(GameObject* object);
 
       // TODO: Add a generic way of handling intelligence
       // Think of an "input thinker." One will be for the real player, so the function passed in

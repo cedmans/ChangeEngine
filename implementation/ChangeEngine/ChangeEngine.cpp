@@ -63,6 +63,10 @@ void ChangeEngine::Destroy(void) {
       //Destroy any levels in the array
       for(std::map<std::string,GameLevel*>::iterator it=pInstance->levels.begin(); it!=pInstance->levels.end(); it++) {
          
+         #ifdef DEBUG
+         fprintf(stderr,"GameEngine: Destroying level %s.\n",(*it).first.c_str());
+         #endif
+
          GameLevel::Destroy((*it).second);
       }
       
@@ -142,10 +146,49 @@ void ChangeEngine::setWindowCaption(const char* caption) {
 
 int ChangeEngine::createLevel(const char* levelName) {
    
+   #ifdef DEBUG
+   fprintf(stderr,"GameEngine: Creating level %s.\n",levelName);
+   #endif
+   
    //Make sure the level name doesn't already exist
    if(levels.find(levelName) == levels.end()) {
       
+      #ifdef DEBUG
+      fprintf(stderr,"GameEngine: Level %s is unique, creating.\n",levelName);
+      #endif
+      
       levels[levelName] = new GameLevel();
+   }
+   #ifdef DEBUG
+   else {
+      
+      fprintf(stderr,"GameEngine: Level %s already exists. This ain't right.",levelName);
+      return ELEVELCREATE_ALREADY_EXISTS;
+   }
+   #endif
+   
+   return EENGINE_SUCCESS;
+}
+
+int ChangeEngine::createGameObject(const char* levelName, const char* objectName) {
+   
+   #ifdef DEBUG
+   fprintf(stderr,"GameEngine: Creating Object (%s:%s)\n",levelName,objectName);
+   #endif
+   
+   //If the level doesn't exist, this is bad
+   if(levels.find(levelName) == levels.end()) {
+      
+      #ifdef DEBUG
+      fprintf(stderr,"GameEngine: Uh oh, level %s DOESN'T EXIST\n",levelName);
+      #endif
+      
+      return EOBJECTCREATE_INVALID_LEVEL;
+   }
+   else {
+            
+      //Make object in level
+      levels[levelName]->createGameObject(objectName);
    }
    
    return EENGINE_SUCCESS;

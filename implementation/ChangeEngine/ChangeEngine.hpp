@@ -91,6 +91,11 @@ class ChangeEngine {
        */
       int createLevel(const char* levelName);
       
+      /**
+       * Create a managed object for a given level.
+       */
+      int createGameObject(const char* levelName, const char* objectName);
+      
    private:
 
       /**

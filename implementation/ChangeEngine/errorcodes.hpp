@@ -22,10 +22,17 @@
 #define EWINDOW_FAILED                 1           /* Window creation failed */
 #define EINITIATE_FAILED               2           /* Multimedia Library Initialization failed */
 #define ELEVELCREATE_FAILED            3           /* Creation of a game level has failed */
+#define ELEVELCREATE_ALREADY_EXISTS    4           /* Game level creation attempt on preexisting name */
+#define EOBJECTCREATE_INVALID_LEVEL    5           /* Object create attempt on level that doesn't exist */
 
 /***************************
  * GameWindow Errors       *
  ***************************/
 #define ESETVIDEOMODE_FAILED           20
+
+/***************************
+ * GameoBJECT Errors       *
+ ***************************/
+#define EOBJECT_ALREADY_EXISTS         40
 
 #endif /* _ERRORCODES_HPP */

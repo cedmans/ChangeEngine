@@ -31,12 +31,13 @@ class GameAvatar {
 
       static SDL_Surface* loadImage(const char* filename);
       
-      virtual ~GameAvatar();
-
    public:
       GameAvatar(const char* filename, int width, int height);
 
       void addRow(int frames);
+
+      virtual ~GameAvatar();
+
 };
 
 #endif /* GAMEAVATAR_HPP_ */
