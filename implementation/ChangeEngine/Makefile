@@ -13,7 +13,7 @@ CPPFLAGS = -g -Wall
 CC = g++
 
 #library paths
-LIBS = -lSDL
+LIBS = -lSDL -lSDL_image -lSDL_ttf -lSDL_mixer
 
 # compiler flags
 LDFLAGS = -g

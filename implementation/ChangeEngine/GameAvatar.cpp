@@ -8,6 +8,27 @@
 #include "GameAvatar.hpp"
 #include "SDL/SDL_image.h"
 
+GameAvatar::GameAvatar(const char* filename, int width, int height) {
+   
+   tileSet = loadImage(filename);
+   tileWidth = width;
+   tileHeight = height;
+}
+
+GameAvatar::~GameAvatar() {
+
+   if (tileSet != NULL) {
+      
+      SDL_FreeSurface(tileSet);
+   }
+}
+
+void GameAvatar::addRow(int frames) {
+   
+   frameCount.push_back(frames);
+}
+
+
 SDL_Surface* GameAvatar::loadImage(const char* filename) {
 
    // Algorithm source: http://lazyfoo.net/SDL_tutorials/lesson03/linux/cli/index.php

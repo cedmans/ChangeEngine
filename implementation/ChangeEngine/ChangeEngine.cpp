@@ -60,6 +60,12 @@ void ChangeEngine::Destroy(void) {
    //If this engine is initialized
    if (pInstance != NULL) {
       
+      //Destroy any levels in the array
+      for(std::map<std::string,GameLevel*>::iterator it=pInstance->levels.begin(); it!=pInstance->levels.end(); it++) {
+         
+         GameLevel::Destroy((*it).second);
+      }
+      
       //See if the GameWindow has been initialized
       if (pInstance->window != NULL) {
          
@@ -131,4 +137,16 @@ EventListener* ChangeEngine::getEventListener() {
 void ChangeEngine::setWindowCaption(const char* caption) {
 
    SDL_WM_SetCaption(caption,NULL);
+}
+
+
+int ChangeEngine::createLevel(const char* levelName) {
+   
+   //Make sure the level name doesn't already exist
+   if(levels.find(levelName) == levels.end()) {
+      
+      levels[levelName] = new GameLevel();
+   }
+   
+   return EENGINE_SUCCESS;
 }

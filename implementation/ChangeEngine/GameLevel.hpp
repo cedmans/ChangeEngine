@@ -8,15 +8,36 @@
  * @author Cedric Wienold
  */
 
-#ifdef _GAMELEVEL_HPP
+#ifndef _GAMELEVEL_HPP
 #define _GAMELEVEL_HPP
 
-#include "debug.h"
+#include <map>
+#include <string>
+
+#include "GameObject.hpp"
+#include "debug.hpp"
+#include "errorcodes.hpp"
+
 #include "SDL/SDL.h"
 
 class GameLevel {
-   private:
+   private:      
+      /**
+       * Array of game objects being handled by this engine.
+       */
+      std::map<std::string, GameObject*> objects;
+   
    public:
+   
+      /**
+       * Destroy the given level and all managed objects therein.
+       */
+      static void Destroy(GameLevel* level);
+      
+      /**
+       * Create a game object to be managed by the level.
+       */
+      int createGameObject(std::string objectName);
 };
 
 #endif /* _GAMELEVEL_HPP */

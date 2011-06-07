@@ -12,7 +12,7 @@
 #define _ERRORCODES_HPP
 
 /**
- * Yeah this means "basically perfect"
+ * Yeah this means "basically perfect" in all contexts.
  */
 #define EENGINE_SUCCESS                0
 
@@ -21,6 +21,7 @@
  ***************************/
 #define EWINDOW_FAILED                 1           /* Window creation failed */
 #define EINITIATE_FAILED               2           /* Multimedia Library Initialization failed */
+#define ELEVELCREATE_FAILED            3           /* Creation of a game level has failed */
 
 /***************************
  * GameWindow Errors       *

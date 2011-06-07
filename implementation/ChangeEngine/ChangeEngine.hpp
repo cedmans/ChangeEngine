@@ -11,9 +11,14 @@
 #ifndef CHANGEENGINE_HPP_
 #define CHANGEENGINE_HPP_
 
+#include <map>
+#include <string>
+
 #include "debug.hpp"
 
 #include "GameWindow.hpp"
+#include "GameObject.hpp"
+#include "GameLevel.hpp"
 #include "InputListener.hpp"
 #include "EventTypes.hpp"
 #include "errorcodes.hpp"
@@ -63,8 +68,6 @@ class ChangeEngine {
        */
       int createWindow(int x, int y, int w, int h, int bpp);
 
-      // Publicize important game engine objects
-
       /**
        * Return the game engine's window.
        * @return The game engine's window, or NULL if it does not exist.
@@ -76,8 +79,18 @@ class ChangeEngine {
        */
       EventListener* getEventListener();
 
+      /**
+       * Sets the title text of the game window.
+       * @param caption The desired text of the game window.
+       */
       void setWindowCaption(const char* caption);
-
+      
+      /**
+       * Creates a level for the game engine to manage.
+       * @param levelName The custom name of the level to create. Your choice here.
+       */
+      int createLevel(const char* levelName);
+      
    private:
 
       /**
@@ -94,6 +107,13 @@ class ChangeEngine {
        * Event listener
        */
       EventListener *listener;
+      
+      //// Now for managed objects, so the user need not care about lots of crap for memory handling
+      
+      /**
+       * Array of levels.
+       */
+      std::map<std::string,GameLevel*> levels;
 };
 
 #endif /* CHANGEENGINE_H_ */

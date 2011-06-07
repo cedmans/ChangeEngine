@@ -24,15 +24,19 @@
 
 class GameAvatar {
    private:
-      SDL_Surface tileSet;
+      SDL_Surface *tileSet;
       int tileWidth,tileHeight;
 
-      std::vector<int> frameNumber;
+      std::vector<int> frameCount;
 
       static SDL_Surface* loadImage(const char* filename);
+      
+      virtual ~GameAvatar();
 
    public:
-      GameAvatar(const char* filename);
+      GameAvatar(const char* filename, int width, int height);
+
+      void addRow(int frames);
 };
 
 #endif /* GAMEAVATAR_HPP_ */
