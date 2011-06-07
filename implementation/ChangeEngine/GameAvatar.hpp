@@ -18,6 +18,7 @@
 #ifndef GAMEAVATAR_HPP_
 #define GAMEAVATAR_HPP_
 
+#include <string>
 #include <vector>
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
@@ -27,17 +28,16 @@ class GameAvatar {
       SDL_Surface *tileSet;
       int tileWidth,tileHeight;
 
-      std::vector<int> frameCount;
+      std::vector<int> frameSet;
 
       static SDL_Surface* loadImage(const char* filename);
       
    public:
-      GameAvatar(const char* filename, int width, int height);
-
-      void addRow(int frames);
-
       virtual ~GameAvatar();
-
+      
+      int attachImage(std::string filename, int tileWidth, int tileHeight);
+      
+      int addAvatarState(int frameCount);
 };
 
 #endif /* GAMEAVATAR_HPP_ */

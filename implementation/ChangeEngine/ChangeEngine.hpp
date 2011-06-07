@@ -96,6 +96,26 @@ class ChangeEngine {
        */
       int createGameObject(const char* levelName, const char* objectName);
       
+      /**
+       * Attach an image to a game object's avatar with a given filename.
+       * @param level Name of level to attach image to.
+       * @param object Name of object ot attach image to.
+       * @param filename Filename of image to attach to object.
+       * @param tileWidth Width of a single tile in the image.
+       * @param tileHeight Height of a single tile in the image.
+       */
+      int attachImageToGameObject(std::string level, std::string object, std::string filename, int tileWidth, int tileHeight);
+      
+      /**
+       * Add a state to the avatar tileset manager. A state will be a single row on the tileset.
+       * The parameter will be the number of frames on that row. Add states from the top of the
+       * tile set to the bottom, in that order specifically.
+       * @param frameCount The number of frames on the current row of the tile set.
+       */
+      int addAvatarState(std::string level, std::string object, int frameCount);
+      
+      int drawObject(std::string level, std::string object, int state, int frame);
+      
    private:
 
       /**

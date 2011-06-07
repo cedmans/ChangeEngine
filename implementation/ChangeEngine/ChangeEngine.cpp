@@ -185,11 +185,59 @@ int ChangeEngine::createGameObject(const char* levelName, const char* objectName
       
       return EOBJECTCREATE_INVALID_LEVEL;
    }
-   else {
             
-      //Make object in level
-      levels[levelName]->createGameObject(objectName);
+   //Make object in level
+   if ((levels[levelName]->createGameObject(objectName)) != EENGINE_SUCCESS) {
+      
+      return EOBJECTCREATE_CREATE_FAILED;
    }
    
+   return EENGINE_SUCCESS;
+}
+
+int ChangeEngine::attachImageToGameObject(std::string level, std::string object, std::string filename, int tileWidth, int tileHeight) {
+
+   #ifdef DEBUG
+   fprintf(stderr,"GameEngine: Attaching image \"%s\" to object (%s:%s)\n",filename.c_str(),level.c_str(),object.c_str());
+   #endif
+   
+   //Check if level exists
+   if (levels.find(level) == levels.end())
+   {
+      #ifdef DEBUG
+      fprintf(stderr,"GameEngine: Uh oh, level %s DOESN'T EXIST\n",level.c_str());
+      #endif
+      
+      return EATTACHIMAGE_INVALID_LEVEL;
+   }
+   
+   if ((levels[level]->attachImage(object,filename,tileWidth,tileHeight)) != EENGINE_SUCCESS) {
+      
+      return EATTACHIMAGE_FAILED;
+   }
+
+   return EENGINE_SUCCESS;
+}
+int ChangeEngine::addAvatarState(std::string level, std::string object, int frameCount) {
+   
+   #ifdef DEBUG
+   fprintf(stderr,"GameEngine: Adding state\n");
+   #endif
+   
+   //Check if level exists
+   if (levels.find(level) == levels.end())
+   {
+      #ifdef DEBUG
+      fprintf(stderr,"GameEngine: Uh oh, level %s DOESN'T EXIST\n",level.c_str());
+      #endif
+      
+      return EADDSTATE_INVALID_LEVEL;
+   }
+   
+   if ((levels[level]->addAvatarState(object,frameCount)) != EENGINE_SUCCESS) {
+      
+      return EADDSTATE_FAILED;
+   }
+
    return EENGINE_SUCCESS;
 }

@@ -11,6 +11,7 @@
 #ifndef GAMEOBJECT_HPP_
 #define GAMEOBJECT_HPP_
 
+#include <string>
 #include "GameAvatar.hpp"
 
 class GameObject {
@@ -57,6 +58,14 @@ class GameObject {
        * @param object the game object ot destroy.
        */
       static void Destroy(GameObject* object);
+      
+      /**
+       * Attach an image to this object's avatar.
+       * @param filename Filename of the image to attach to the avatar.
+       */
+      int attachImage(std::string filename, int tileWidth, int tileHeight);
+      
+      int addAvatarState(int frameCount);
 
       // TODO: Add a generic way of handling intelligence
       // Think of an "input thinker." One will be for the real player, so the function passed in

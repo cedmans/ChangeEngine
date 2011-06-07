@@ -54,3 +54,56 @@ int GameLevel::createGameObject(std::string objectName) {
    return EENGINE_SUCCESS;
 }
 
+int GameLevel::attachImage(std::string object, std::string filename, int tileWidth, int tileHeight) {
+   
+   #ifdef DEBUG
+   fprintf(stderr,"GameLevel: Attaching \"%s\" to object %s\n",filename.c_str(),object.c_str());
+   #endif
+   
+   //make sure object exists here
+   if (objects.find(object.c_str()) != objects.end()) {
+      
+      #ifdef DEBUG
+      fprintf(stderr,"GameLevel: Object %s exists. Attaching image \"%s\"\n",object.c_str(), filename.c_str());
+      #endif
+      
+      objects[object.c_str()]->attachImage(filename,tileWidth,tileHeight);
+   }
+   else {
+
+      #ifdef DEBUG
+      fprintf(stderr,"GameLevel: Object %s does not exist. Somebuddy dun fuj'd up\n",object.c_str());
+      #endif
+      
+      return EATTACHIMAGE_INVALID_OBJECT;
+   }
+   
+   return EENGINE_SUCCESS;
+}
+
+int GameLevel::addAvatarState(std::string object, int frameCount) {
+   
+   #ifdef DEBUG
+   fprintf(stderr,"GameLevel: Adding level to %s\n",object.c_str());
+   #endif
+   
+   //make sure object exists
+   if (objects.find(object.c_str()) != objects.end()) {
+      
+      #ifdef DEBUG
+      fprintf(stderr,"GameLevel: Object %s exists. Adding state.\n",object.c_str());
+      #endif
+      
+      objects[object.c_str()]->addAvatarState(frameCount);
+   }
+   else {
+      
+      #ifdef DEBUG
+      fprintf(stderr,"GameLevel: Object %s does not exist. Cannot add state.\n",object.c_str());
+      #endif
+      
+      return EADDSTATE_INVALID_OBJECT;
+   }
+   
+   return EENGINE_SUCCESS;
+}

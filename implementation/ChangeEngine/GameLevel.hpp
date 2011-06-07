@@ -38,6 +38,16 @@ class GameLevel {
        * Create a game object to be managed by the level.
        */
       int createGameObject(std::string objectName);
+      
+      /**
+       * Attached an image to an avatar of the desired object in this level.
+       */
+      int attachImage(std::string object, std::string filename, int tileWidth, int tileHeight);
+      
+      /**
+       * Add state with given number of frames to desired object in this level.
+       */
+      int addAvatarState(std::string object, int frameCount);
 };
 
 #endif /* _GAMELEVEL_HPP */

@@ -7,13 +7,8 @@
 
 #include "GameAvatar.hpp"
 #include "SDL/SDL_image.h"
-
-GameAvatar::GameAvatar(const char* filename, int width, int height) {
-   
-   tileSet = loadImage(filename);
-   tileWidth = width;
-   tileHeight = height;
-}
+#include "errorcodes.hpp"
+#include "debug.hpp"
 
 GameAvatar::~GameAvatar() {
 
@@ -22,12 +17,6 @@ GameAvatar::~GameAvatar() {
       SDL_FreeSurface(tileSet);
    }
 }
-
-void GameAvatar::addRow(int frames) {
-   
-   frameCount.push_back(frames);
-}
-
 
 SDL_Surface* GameAvatar::loadImage(const char* filename) {
 
@@ -48,4 +37,34 @@ SDL_Surface* GameAvatar::loadImage(const char* filename) {
    }
 
    return optimizedImage;
+}
+
+int GameAvatar::attachImage(std::string filename, int tileWidth, int tileHeight) {
+
+   #ifdef DEBUG
+   fprintf(stderr,"GameAvatar: Attaching image %s\n",filename.c_str());
+   #endif
+   
+   tileSet = GameAvatar::loadImage(filename.c_str());
+   
+   if (tileSet == NULL) {
+      
+      return EATTACHIMAGE_FAILED;
+   }
+   
+   tileWidth = tileWidth;
+   tileHeight = tileHeight;
+   
+   return EENGINE_SUCCESS;
+}
+
+int GameAvatar::addAvatarState(int frameCount) {
+
+   #ifdef DEBUG
+   fprintf(stderr,"GameAvatar: Adding state\n");
+   #endif
+   
+   frameSet.push_back(frameCount);
+   
+   return EENGINE_SUCCESS;
 }
