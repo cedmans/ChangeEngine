@@ -1,0 +1,1 @@
+../ChangeEngine/GameAvatar.hpp
