@@ -51,7 +51,54 @@ Advised by Dr. Michael Haungs\\\\}
     We also feel that the basic logic of the program is the responsibility of whoever is programming the game. Our engine provides functions which are necessary to most games, namely collision detection, but the implementer of the engine is responsible for what happens between the objects our engine provides.
 
   \section{Game Engine}
-    TODO: Write how to use
+    The game engine supports two main ways of implementing its classes: managed and unmanaged.
+\subsection{Managed Engine}
+The managed engine provides memory management benefits and ease of use at the cost of flexibility to the user. Everything the programmer creates or instantiates will be done through the overarching game engine class.
+
+\subsubsection{Usage}
+\begin{enumerate}
+ \item \begin{verbatim} ChangeEngine* engine = ChangeEngine::Initiate(); \end{verbatim}
+This is the overarching game engine class, through which most of our operations will take place.
+ \item \begin{verbatim} engine->setWindowCaption("Test Window"); \end{verbatim}
+The programmer may wish to use a custom window title, as this is a windowed application. Full screen is not yet supported.
+ \item \begin{verbatim} engine->createWindow(screen_width,screen_height,bpp); \end{verbatim}
+This sets up the game window with the given width, height, and color depth.
+ \item \begin{verbatim} engine->createLevel("Level1"); \end{verbatim}
+Scenes in this engine are split into ``Levels'', each of which contains several GameObject classes.
+ \item \begin{verbatim} engine->createGameObject("Level1","Object1"); \end{verbatim}
+This creates ``Object1'' and places it into ``Level1'' to be handled there.
+ \item \begin{verbatim} engine->attachImageToGameObject("Level1","Object1",
+"filename.png",tilewidth,tileheight); \end{verbatim}
+This will attach an image to ``Object1'', also known as an 'avatar'. This is not a default operation for GameObjects, as it is likely the user will want to have an object with no image (for logical operations and such). ``tilewidth'' and ``tileheight'' are terms used in the context of tile sets, where multiple sprites of animation are contained in the same file. Sprite width and height are considered to be the same for all sprites in a tile set.
+ \item \begin{verbatim} engine->addAvatarState("Level1","Object1",spritecount); \end{verbatim}
+This creates a state for the avatar and sets the number of sprites in that state. In the actual image file, each state is on a single row of tiles, and the sprite count is the number of sprites available on that row of animation. In this way, the tile set can have a variable number of frames of animation for each state.
+
+A state can be something as simple as the direction the object is facing, or an action it is taking, or both. The programmer must make sure to keep track of the order states are given, as they added from the top of the file down, and are indexed by integer starting from zero.
+ \item \begin{verbatim} engine->drawObject("Level1","Object1",state,frame); \end{verbatim}
+This will draw ``Object1'' of ``Level1'' to the window with the given state and frame, as given above. Going outside the bounds of the number of states added, or the number of frames in that state, will result in undefined operation.
+ \item ... Game Operations ...
+ \item \begin{verbatim} ChangeEngine::Destroy(); \end{verbatim}
+This will make use of the game engine's internal memory management framework to remove all objects created so that the programmer need not worry about it.
+\end{enumerate}
+
+\subsection{Unmanaged Engine}
+The game engine provides the programmer with unrestricted access to each class contained therein. While the programmer must do his own memory management to prevent leaks, he is not restricted to our ``Level'' framework or even our own drawing functions. What follows is only an example of what can be done with the freedom of an unmanaged engine.
+
+\begin{enumerate}
+ \item \begin{verbatim} ChangeEngine* engine = ChangeEngine::Initiate(); \end{verbatim}
+ \item \begin{verbatim} engine->setWindowCaption("Test Window"); \end{verbatim}
+ \item \begin{verbatim} engine->createWindow(screen_width,screen_height,bpp); \end{verbatim}
+ \item \begin{verbatim} GameObject* object = new GameObject(); \end{verbatim}
+ \item \begin{verbatim} object->setWidth(tilewidth); \end{verbatim}
+ \item \begin{verbatim} object->setHeight(tileheight); \end{verbatim}
+ \item ... Game Operations ...
+ \item \begin{verbatim} object->drawImage(engine->getWindow(),state,frame); \end{verbatim}
+ \item \begin{verbatim} SDL_Flip(engine->getWindow()->getScreen()); \end{verbatim}
+ \item ... Game Loop until Finished ...
+ \item \begin{verbatim} engine->Destroy(); \end{verbatim}
+\end{enumerate}
+
+We have made every attempt to expose useful variables in each object. One need only browse the available header files to understand each function. For example, ChangeEngine's GameWindow class contains an SDL\_Surface called ``screen'', which we make available for use in SDL operations with \begin{verbatim}getScreen()\end{verbatim}.
 
   \section{Design and Implementation}
     ChangeEngine will fulfill the following software requirements:
