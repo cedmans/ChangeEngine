@@ -95,10 +95,13 @@ The game engine provides the programmer with unrestricted access to each class c
  \item \begin{verbatim} object->drawImage(engine->getWindow(),state,frame); \end{verbatim}
  \item \begin{verbatim} SDL_Flip(engine->getWindow()->getScreen()); \end{verbatim}
  \item ... Game Loop until Finished ...
+ \item \begin{verbatim} GameObject::Destroy(object); \end{verbatim}
  \item \begin{verbatim} engine->Destroy(); \end{verbatim}
 \end{enumerate}
 
 We have made every attempt to expose useful variables in each object. One need only browse the available header files to understand each function. For example, ChangeEngine's GameWindow class contains an SDL\_Surface called ``screen'', which we make available for use in SDL operations with \begin{verbatim}getScreen()\end{verbatim}.
+
+Take note that the GameObject class also has its own static destruction function. In an unmanaged engine, it will be the programmer's responsibility to locate all applicable class destruction functions and use them.
 
   \section{Design and Implementation}
     ChangeEngine will fulfill the following software requirements:
