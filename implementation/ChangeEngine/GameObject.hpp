@@ -13,6 +13,8 @@
 
 #include <string>
 #include "GameAvatar.hpp"
+#include "GameController.hpp"
+#include "EventListener.hpp"
 
 class GameObject {
    public:
@@ -53,6 +55,15 @@ class GameObject {
        */
       int getDepth();
       
+      void setX(int);
+      void setY(int);
+      void setZ(int);
+      void setWidth(int);
+      void setHeight(int);
+      void setDepth(int);
+      
+      GameObject();
+      
       /**
        * Destroy this object and its related avatar, if applicable.
        * @param object the game object ot destroy.
@@ -66,11 +77,10 @@ class GameObject {
       int attachImage(std::string filename, int tileWidth, int tileHeight);
       
       int addAvatarState(int frameCount);
+      
+      int drawObject(GameWindow* window, int state, int frame);
 
-      // TODO: Add a generic way of handling intelligence
-      // Think of an "input thinker." One will be for the real player, so the function passed in
-      // can be an input handler. Another can be an artificial intelligence thing.
-
+      int attachController(EventListener* listener, GameController* controller);
 
    private:
       int x, y;
@@ -79,6 +89,9 @@ class GameObject {
       int w,h,d; //width, height, depth (latter is probably useless in 2D games)
 
       GameAvatar* avatar;
+      EventListener* listener;
+      
+      GameController* controller;
 
 };
 

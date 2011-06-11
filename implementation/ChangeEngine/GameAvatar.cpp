@@ -12,6 +12,10 @@
 
 GameAvatar::~GameAvatar() {
 
+   #ifdef DEBUG
+   fprintf(stderr,"GameAvatar: Destructing avatar.\n");
+   #endif
+
    if (tileSet != NULL) {
       
       SDL_FreeSurface(tileSet);
@@ -52,8 +56,8 @@ int GameAvatar::attachImage(std::string filename, int tileWidth, int tileHeight)
       return EATTACHIMAGE_FAILED;
    }
    
-   tileWidth = tileWidth;
-   tileHeight = tileHeight;
+   this->tileWidth = tileWidth;
+   this->tileHeight = tileHeight;
    
    return EENGINE_SUCCESS;
 }
@@ -65,6 +69,37 @@ int GameAvatar::addAvatarState(int frameCount) {
    #endif
    
    frameSet.push_back(frameCount);
+   
+   return EENGINE_SUCCESS;
+}
+
+int GameAvatar::drawObject(GameWindow* window, int x, int y, int state, int frame) {
+   
+   SDL_Rect *srcrect = new SDL_Rect();
+   SDL_Rect *dstrect = new SDL_Rect();
+   
+   //Position the crop rect around the frame we want
+   srcrect->x = frame*tileWidth;
+   srcrect->y = state*tileHeight;
+   srcrect->w = tileWidth;
+   srcrect->h = tileHeight;
+   
+   #ifdef DEBUG
+   fprintf(stderr,"GameAvatar: Drawing object to (%ix%i),(%i,%i)\n",x,y,state,frame);
+   #endif
+
+   //Now we totally want to set the destination rect for the output
+   dstrect->x = x;
+   dstrect->y = y;
+   dstrect->w = tileWidth;
+   dstrect->h = tileHeight;
+   
+   //Blit to the window's surface
+   //SDL_BlitSurface(tileSet,&srcrect,window->getScreen(),&dstrect);
+   SDL_BlitSurface(tileSet,srcrect,window->getScreen(),NULL);
+   
+   delete srcrect;
+   delete dstrect;
    
    return EENGINE_SUCCESS;
 }

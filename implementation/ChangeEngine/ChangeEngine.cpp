@@ -241,3 +241,52 @@ int ChangeEngine::addAvatarState(std::string level, std::string object, int fram
 
    return EENGINE_SUCCESS;
 }
+
+int ChangeEngine::drawObject(std::string level, std::string object, int state, int frame) {
+   
+   #ifdef DEBUG
+   fprintf(stderr,"ChangeEngine: Drawing %s to level %s\n",object.c_str(),level.c_str());
+   #endif
+
+   if (levels.find(level) == levels.end()) {
+      
+      return EENGINE_FAILURE;
+   }
+   
+   if ((levels[level]->drawObject(window,object,state,frame)) != EENGINE_SUCCESS) {
+      
+      return EENGINE_FAILURE;
+   }
+   
+   return EENGINE_SUCCESS;
+}
+
+int ChangeEngine::drawStart() {
+   
+   SDL_FillRect(this->window->getScreen(), &(this->window->getScreen())->clip_rect, SDL_MapRGB(this->window->getScreen()->format, 0x00, 0x00, 0x00));
+   
+   return EENGINE_SUCCESS;
+}
+
+int ChangeEngine::drawFinish() {
+   
+   //Complete the drawing process
+   SDL_Flip(window->getScreen());
+   
+   return EENGINE_SUCCESS;
+}
+
+int ChangeEngine::attachControllerToGameObject(const char* level, const char* object, GameController* controller) {
+
+   levels[level]->attachController(object, this->listener, controller);
+
+   return EENGINE_SUCCESS;
+}
+
+int ChangeEngine::pollEvent() {
+
+   if (!(listener->pollEvent()))
+      return EENGINE_FAILURE;
+
+   return EENGINE_SUCCESS;
+}

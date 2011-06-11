@@ -11,10 +11,14 @@
 #ifndef _GAMELEVEL_HPP
 #define _GAMELEVEL_HPP
 
+class GameController;
+
 #include <map>
 #include <string>
 
 #include "GameObject.hpp"
+#include "GameController.hpp"
+#include "EventListener.hpp"
 #include "debug.hpp"
 #include "errorcodes.hpp"
 
@@ -48,6 +52,16 @@ class GameLevel {
        * Add state with given number of frames to desired object in this level.
        */
       int addAvatarState(std::string object, int frameCount);
+      
+      /**
+       * Draw an object of the given state and frame.
+       */
+      int drawObject(GameWindow* window, std::string object, int state, int frame);
+      
+      /**
+       * Attach a controller to the given object.
+       */
+      int attachController(const char* object, EventListener* listener, GameController* controller);
 };
 
 #endif /* _GAMELEVEL_HPP */

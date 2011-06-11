@@ -3,3 +3,4 @@
 3. More specific error states.
 4. Ways to get error codes from outside engine.
 5. Needs a concept of "current level" to clean up code and prevent possibility of drawing items of non-current level.
+6. On-board notion of threads to maximize CPU efficiency, or timers to make life easy for programmers

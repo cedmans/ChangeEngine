@@ -19,7 +19,8 @@
 #include "GameWindow.hpp"
 #include "GameObject.hpp"
 #include "GameLevel.hpp"
-#include "InputListener.hpp"
+#include "GameController.hpp"
+#include "EventListener.hpp"
 #include "EventTypes.hpp"
 #include "errorcodes.hpp"
 
@@ -114,7 +115,31 @@ class ChangeEngine {
        */
       int addAvatarState(std::string level, std::string object, int frameCount);
       
+      /**
+       * Draw an object in a level of the given state and frame to the backbuffer. This will not
+       * actually draw anything to the front buffer. To complete drawing, call draw().
+       */
       int drawObject(std::string level, std::string object, int state, int frame);
+      
+      /**
+       * Begin the drawing process.
+       */
+      int drawStart();
+      
+      /**
+       * Complete the drawing process.
+       */
+      int drawFinish();
+      
+      /**
+       * Attach a controller to the given game object of the given leve.
+       */
+      int attachControllerToGameObject(const char* level, const char* object, GameController* controller);
+      
+      /**
+       * Poll the event buffer.
+       */
+      int pollEvent();
       
    private:
 

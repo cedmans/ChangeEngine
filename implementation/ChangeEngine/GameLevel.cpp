@@ -67,7 +67,11 @@ int GameLevel::attachImage(std::string object, std::string filename, int tileWid
       fprintf(stderr,"GameLevel: Object %s exists. Attaching image \"%s\"\n",object.c_str(), filename.c_str());
       #endif
       
-      objects[object.c_str()]->attachImage(filename,tileWidth,tileHeight);
+      if (objects[object.c_str()]->attachImage(filename,tileWidth,tileHeight) != EENGINE_SUCCESS) {
+	 
+	 fprintf(stderr,"GameLevel: Failed to attach image \"%s\" to %s",filename.c_str(),object.c_str());
+	 return EATTACHIMAGE_FAILED;
+      }
    }
    else {
 
@@ -104,6 +108,28 @@ int GameLevel::addAvatarState(std::string object, int frameCount) {
       
       return EADDSTATE_INVALID_OBJECT;
    }
+   
+   return EENGINE_SUCCESS;
+}
+
+int GameLevel::drawObject(GameWindow* window, std::string object, int state, int frame) {
+   
+   #ifdef DEBUG
+   fprintf(stderr,"GameLevel: Drawing %s (s,f)=(%i,%i)\n",object.c_str(),state,frame);
+   #endif
+
+   if (objects.find(object.c_str()) != objects.end()) {
+      
+      //We DRAW NOW
+      return objects[object.c_str()]->drawObject(window,state,frame);
+   }
+   
+   return EENGINE_FAILURE;
+}
+
+int GameLevel::attachController(const char* object, EventListener* listener, GameController* controller) {
+
+   objects[object]->attachController(listener,controller);
    
    return EENGINE_SUCCESS;
 }

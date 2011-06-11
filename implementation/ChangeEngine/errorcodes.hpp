@@ -15,6 +15,7 @@
  * Yeah this means "basically perfect" in all contexts.
  */
 #define EENGINE_SUCCESS                0
+#define EENGINE_FAILURE                99999       /* Don't use this so much. It's a placeholder for more specific errors */
 
 /***************************
  * ChangeEngine Errors     *

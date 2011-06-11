@@ -22,6 +22,7 @@
 #include <vector>
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
+#include "GameWindow.hpp"
 
 class GameAvatar {
    private:
@@ -38,6 +39,10 @@ class GameAvatar {
       int attachImage(std::string filename, int tileWidth, int tileHeight);
       
       int addAvatarState(int frameCount);
+      
+      int drawObject(GameWindow* window, int x, int y, int state, int frame);
+      
+      SDL_Surface *getSurface() {return tileSet;}
 };
 
 #endif /* GAMEAVATAR_HPP_ */
