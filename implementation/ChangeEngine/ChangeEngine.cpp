@@ -290,3 +290,10 @@ int ChangeEngine::pollEvent() {
 
    return EENGINE_SUCCESS;
 }
+
+int ChangeEngine::actObjects(const char* level) {
+
+   levels[level]->actObjects(this->getEventListener());
+   
+   return EENGINE_SUCCESS;
+}

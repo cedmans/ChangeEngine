@@ -103,6 +103,17 @@ We have made every attempt to expose useful variables in each object. One need o
 
 Take note that the GameObject class also has its own static destruction function. In an unmanaged engine, it will be the programmer's responsibility to locate all applicable class destruction functions and use them.
 
+\subsection{Object Controllers}
+This engine uses the concept of ``controllers'' to handle objects that need to be moved for whatever reason. Every object has a private GameController instance, which is null at first, since many objects may not require being controlled. The controller depends on using a managed engine, or an effective use of GameLevels. The game engine provides \begin{verbatim}actObjects(GameLevel*)\end{verbatim} as an easy way to force all objects to be controlled, and this can be done every loop of the game engine.
+
+The GameController class is an abstract class. In order for the programmer to control an object, he must make a new class which inherits GameController and write the \begin{verbatim}act(GameLevel*,GameObject*,EventListener*)\end{verbatim} function himself. The act() function will take in three variables: the level the object is on, the object the controller acts on, and an event listener. Not following these standards for the variables will result in wholly undefined behavior.
+
+\subsubsection{Artificial Intelligence}
+The implementation of this function can be as simple as moving the object back an forth on its own, but its access to the level makes it aware of all objects in the field, so that the programmer is able to use artificial intelligence to make the object decide its actions based on its environment.
+
+\subsubsection{User Interaction}
+The controller object also allows the programmer to have the user interact directly with the object. The reason the EventListener is included in the function is to make the object aware of events such as keypresses or mouse clicks and act accordingly.
+
   \section{Design and Implementation}
     ChangeEngine will fulfill the following software requirements:
 
@@ -114,41 +125,54 @@ Take note that the GameObject class also has its own static destruction function
 
     \begin{enumerate}
       \item Engine Class
+      \item Window Container
       \item Level Container
       \item Game Object Container
-      \item Input Listener
-      \item Collision Listener
+      \item Game Avatar (Tilemap Container)
+      \item Event Listener
+      \item Object Controller
     \end{enumerate}
 
     \item Extensible classes for programmers to ``plug in'' their own logic
 
     \begin{enumerate}
-      \item Artificial Intelligence
-      \item Input Handler
-      \item Collision Handler
+      \item Object Controller (Artificial Intelligence or User Input)
+      \item Event Handler
     \end{enumerate}
 
   \end{enumerate}
 
-  \begin{enumerate}
-    \item SDL Usage
-    \item Collision Detection
-    \item Artificial Intelligence
-  \end{enumerate}
-
 \end{enumerate}
-
-
 
   \section{Tools and Teamwork}
     This project will primarily be programmed by Cedric Wienold using various programming environments supporting C++ code. Teamwork will be limited to interviews with industry professionals concerning algorithms and class organization advice.
 
   \section{Analysis}
-    Research will be conducted on the following areas, and methods and results will be included in the appenix.
+    Testing this engine is an important way of determining if its current programming is at all useful for programmers.
+
+    To test the engine's managed object framework, I would run through a loop of progressively more objects (tens, hundreds, thousands, tens of thousands, etc.) and log the amount of time the game engine takes to create the objects, use the objects functions (such as attaching images and using the controllers on every loop), and destroy the objects.
 
   \section{Related Work}
 
   \section{Conclusions}
+    The programmer must be careful to ensure his usage of this class's available functions is logical.
+\subsection{ChangeEngine}
+\begin{verbatim*}pollEvents()\end{verbatim*} should only be called once per loop to ensure that multiple functions depending on the same event are not deprived of it because they did not act on the event quickly enough.
+\\
+
+\begin{verbatim}createWindow(int w, int h, int bpp)\end{verbatim} should only be used with sensible, non-negative values.
+\\
+
+\begin{verbatim}createLevel()\end{verbatim} and \begin{verbatim}createGameObject\end{verbatim} have protections against being called with same-named values repeatedly. Keep in mind that if debug mode is off, the programmer will not be informed of a failure unless he is specifically checking for it.
+\\
+
+\begin{verbatim}addAvatarState()\end{verbatim} should be used on a row-by-row basis for tile sets.
+\\
+
+\begin{verbatim}drawObject()\end{verbatim} will not actually output an object to the screen.
+\\
+
+\begin{verbatim}drawFinish()\end{verbatim} is necessary to flip the backbuffer to the front, and should only be called once every loop to prevent flickering.
 
   \section{Future Improvements}
     This project will remain open source for any programmer to extend and improve upon it. ChangeEngine will maintain a pluggable interface in many ways so that programmers need only design their own functions and pass them into the engine if they wish to use them. Artificial intelligence, collision detection, and input detection are all areas which programmers can design their own plug-ins for.
@@ -161,6 +185,11 @@ As far as future improvements to the game engine go, the following is a noncompr
  \item Continue building more specific error codes for all classes.
  \item Create single ``draw'' function for a level which will draw all managed objects.
  \item Handle timers or threads in ChangeEngine so the user need not be concerned with it.
+ \item Include a pointer to a CollisionDetector class in every level, and implement said class.
+ \item Fix the problem where the screen will not update its contents despite actual changes in Object coordinates.
+ \item Improve documentation of functions not in ChangeEngine class, to improve support for non-managed implementations.
+ \item Put level and object destructor access in ChangeEngine class.
+ \item Expose individual GameLevel and GameObject instances to the user via the ChangeEngine class.
 \end{enumerate}
 
 
@@ -175,9 +204,9 @@ As far as future improvements to the game engine go, the following is a noncompr
     \subsubsection{Grid Collision Detection}
       \emph{Theory: } Truly basic collision detection entails each object checking against all other objects for collision, and doing the same for every object. This leads to an average $O(n^2)$.
 
-      The most apparent problem is repeated checks. One solution can be a stack method. For each object, push onto stack. Check collision with everything behind it. INCLUDE PSEUDOCODE HERE.
+      The most apparent problem is repeated checks. One solution can be a stack method. For each object, push onto stack. Check collision with everything behind it.
 
-      The next issue is restricting the number of objects to check on. If objects are not close to each other, there is no point in checking. This is where the grid comes in. For a set of objects, calculate the average X and Y coordinates, and split the field there into 4 quadrants. Do this more as is necessary for the number of objects. INCLUDE PSEUDOCODE HERE.
+      The next issue is restricting the number of objects to check on. If objects are not close to each other, there is no point in checking. This is where the grid comes in. For a set of objects, calculate the average X and Y coordinates, and split the field there into 4 quadrants. Do this more as is necessary for the number of objects.
 
   \section{Source Code}
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ac felis nibh. Maecenas vel risus erat, non convallis risus. Vivamus congue suscipit porta. Fusce cursus lobortis metus et rhoncus. Nulla in ligula eget felis vestibulum iaculis. Nullam ac enim at lorem iaculis accumsan. Nullam at diam a turpis blandit tincidunt ut vitae ipsum. Integer quis enim eget est porta rhoncus. Vivamus commodo, lacus nec laoreet pretium, nunc lectus tincidunt mauris, blandit lobortis erat ligula pretium quam. Mauris et libero nec felis tempor aliquam. Maecenas lacus ante, fringilla eget convallis et, fringilla a dui. Nam bibendum, elit porttitor blandit imperdiet, est magna fringilla diam, eu accumsan ante nisl at metus. Cras non gravida quam. Nulla nec lorem lorem. Proin et massa mauris. Aenean non metus orci. Maecenas porta purus et ligula consequat tempus.

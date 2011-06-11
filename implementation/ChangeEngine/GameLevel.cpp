@@ -133,3 +133,15 @@ int GameLevel::attachController(const char* object, EventListener* listener, Gam
    
    return EENGINE_SUCCESS;
 }
+
+int GameLevel::actObjects(EventListener* listener) {
+   
+   std::map<std::string, GameObject*>::iterator it;
+   
+   for (it=objects.begin(); it!=objects.end(); it++) {
+      
+      it->second->act(this,listener);
+   }
+   
+   return EENGINE_SUCCESS;
+}

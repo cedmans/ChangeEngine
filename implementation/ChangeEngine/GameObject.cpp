@@ -157,3 +157,13 @@ int GameObject::attachController(EventListener* listener, GameController* contro
    
    return EENGINE_SUCCESS;
 }
+
+int GameObject::act(GameLevel* level, EventListener* listener) {
+   
+   if (controller != NULL) {
+      
+      controller->act(level,this,listener);
+   }
+   
+   return EENGINE_SUCCESS;
+}

@@ -12,6 +12,9 @@
 #define _KEYBOARDCONTROLLER_HPP
 
 #include "GameController.hpp"
+#include "EventTypes.hpp"
+#include "EventListener.hpp"
+#include "GameObject.hpp"
 
 class KeyboardController : public GameController {
    

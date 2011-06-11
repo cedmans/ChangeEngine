@@ -141,6 +141,11 @@ class ChangeEngine {
        */
       int pollEvent();
       
+      /**
+       * Runs controller on all objects that have one.
+       */
+      int actObjects(const char* level);
+      
    private:
 
       /**

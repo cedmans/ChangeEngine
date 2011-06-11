@@ -43,6 +43,8 @@ int main(int argc, char** argv) {
 	    break;
       }
       
+      engine->actObjects("Level1");
+      
    }
       
    engine->Destroy();

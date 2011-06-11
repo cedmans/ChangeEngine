@@ -15,7 +15,7 @@ void KeyboardController::act(GameLevel* level, GameObject* object, EventListener
    
    switch( event ) {
       
-      case CE_KEYDOWN {
+      case CE_KEYDOWN:
 	 
 	 key = listener->getKey();
 	 
@@ -30,9 +30,7 @@ void KeyboardController::act(GameLevel* level, GameObject* object, EventListener
 	    
 	    default:
 	       break;
-	 }
-      }
-      
+	 }      
       default:
 	 break;
    }

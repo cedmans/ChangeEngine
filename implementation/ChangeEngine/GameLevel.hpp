@@ -62,6 +62,11 @@ class GameLevel {
        * Attach a controller to the given object.
        */
       int attachController(const char* object, EventListener* listener, GameController* controller);
+      
+      /**
+       * Run controller on all objects that have one.
+       */
+      int actObjects(EventListener* listener);
 };
 
 #endif /* _GAMELEVEL_HPP */

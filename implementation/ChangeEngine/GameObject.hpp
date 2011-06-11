@@ -81,6 +81,8 @@ class GameObject {
       int drawObject(GameWindow* window, int state, int frame);
 
       int attachController(EventListener* listener, GameController* controller);
+      
+      int act(GameLevel* level, EventListener* listener);
 
    private:
       int x, y;
