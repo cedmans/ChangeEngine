@@ -8,7 +8,7 @@ Galaxterminate: main.cpp ChangeEngine.hpp libChangeEngine.a
 	g++ -I../ChangeEngine -o $@ $< $(LIBS)
 
 clean:
-	rm -f Galaxterminate
+	rm -f Galaxterminate *.o
 
 run: ChangeEngineTester
 	./$<

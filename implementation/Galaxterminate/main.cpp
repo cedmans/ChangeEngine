@@ -1,6 +1,7 @@
 #include "mitlicense.hpp"
 
 #include "ChangeEngine.hpp"
+#include "KeyboardController.hpp"
 
 int main(int argc, char** argv) {
    
@@ -9,16 +10,41 @@ int main(int argc, char** argv) {
    engine->setWindowCaption("Galaxterminate!");
    
    engine->createWindow(800, 600, 32);
+   
+   engine->createLevel("Level1");
+   engine->createGameObject("Level1","Object1");
+   engine->attachImageToGameObject("Level1","Object1","spaceship.png",37,32);
+   engine->attachControllerToGameObject("Level1","Object1",(GameController*)(new KeyboardController()));
+   
+   int event, key;
 
-   GameAvatar* avatar = new GameAvatar();
+   bool gameRunning = true;
    
-   avatar->attachImage("spaceship.png",108,101);
-   
-   SDL_BlitSurface(avatar->getSurface(),NULL,engine->getWindow()->getScreen(),NULL);
-   SDL_Flip(engine->getWindow()->getScreen());
-   
-   SDL_Delay(2000);
-   
+   while (gameRunning) {
+
+      engine->drawStart();
+      engine->drawObject("Level1","Object1",0,0);
+      engine->drawFinish();
+
+      engine->pollEvent();
+      
+      event = engine->getEventListener()->getEvent();
+      
+      switch (event) {
+	 
+	 case CE_KEYDOWN:
+	    if (engine->getEventListener()->getKey() == CE_KB_ESCAPE)
+	       gameRunning = false;
+	    break;
+	 case CE_QUIT:
+	    gameRunning = false;
+	    break;
+	 default:
+	    break;
+      }
+      
+   }
+      
    engine->Destroy();
    
    return 0;
