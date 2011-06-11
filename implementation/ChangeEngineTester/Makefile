@@ -1,7 +1,7 @@
-vpath ChangeEngine.hpp ../ChangeEngine
-vpath libChangeEngine.a ../ChangeEngine
+#vpath ChangeEngine.hpp ../ChangeEngine
+#vpath libChangeEngine.a ../ChangeEngine
 
-LIBS =  -L../ChangeEngine -lChangeEngine -lSDL
+LIBS =  -L. -lChangeEngine -lSDL -lSDL_image
 
 .PHONY: clean test run
 
