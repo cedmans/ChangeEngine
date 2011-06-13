@@ -67,6 +67,8 @@ class GameLevel {
        * Run controller on all objects that have one.
        */
       int actObjects(EventListener* listener);
+      
+      int addTransparency(const char* object, int r, int g, int b);
 };
 
 #endif /* _GAMELEVEL_HPP */

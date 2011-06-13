@@ -145,3 +145,13 @@ int GameLevel::actObjects(EventListener* listener) {
    
    return EENGINE_SUCCESS;
 }
+
+int GameLevel::addTransparency(const char* object, int r, int g, int b) {
+   
+   if (objects[object]->addTransparency(r,g,b) != EENGINE_SUCCESS) {
+      
+      return EENGINE_FAILURE;
+   }
+   
+   return EENGINE_SUCCESS;
+}

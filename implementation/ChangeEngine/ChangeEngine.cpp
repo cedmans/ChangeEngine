@@ -297,3 +297,13 @@ int ChangeEngine::actObjects(const char* level) {
    
    return EENGINE_SUCCESS;
 }
+
+int ChangeEngine::addTransparency(const char* level, const char* object, int r, int g, int b) {
+   
+   if (levels[level]->addTransparency(object,r,g,b) != EENGINE_SUCCESS) {
+      
+      return EENGINE_FAILURE;
+   }
+   
+   return EENGINE_SUCCESS;
+}

@@ -43,6 +43,8 @@ class GameAvatar {
       int drawObject(GameWindow* window, int x, int y, int state, int frame);
       
       SDL_Surface *getSurface() {return tileSet;}
+      
+      int addTransparency(int r, int g, int b);
 };
 
 #endif /* GAMEAVATAR_HPP_ */

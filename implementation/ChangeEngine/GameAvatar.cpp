@@ -96,10 +96,22 @@ int GameAvatar::drawObject(GameWindow* window, int x, int y, int state, int fram
    
    //Blit to the window's surface
    //SDL_BlitSurface(tileSet,&srcrect,window->getScreen(),&dstrect);
-   SDL_BlitSurface(tileSet,srcrect,window->getScreen(),NULL);
+   SDL_BlitSurface(tileSet,srcrect,window->getScreen(),dstrect);
    
    delete srcrect;
    delete dstrect;
+   
+   return EENGINE_SUCCESS;
+}
+
+int GameAvatar::addTransparency(int r, int g, int b) {
+   
+   if (this->tileSet == NULL)
+      return EENGINE_FAILURE;
+   
+   int colorkey = SDL_MapRGB(this->tileSet->format, r, g, b);
+   
+   SDL_SetColorKey(this->tileSet, SDL_SRCCOLORKEY, colorkey);
    
    return EENGINE_SUCCESS;
 }

@@ -145,6 +145,11 @@ class ChangeEngine {
        * Runs controller on all objects that have one.
        */
       int actObjects(const char* level);
+
+      /**
+       * Sets the transparency color of the given object to the given RGB values.
+       */
+      int addTransparency(const char* level, const char* object, int r, int g, int b);
       
    private:
 

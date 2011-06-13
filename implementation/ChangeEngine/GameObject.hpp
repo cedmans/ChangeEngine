@@ -83,6 +83,8 @@ class GameObject {
       int attachController(EventListener* listener, GameController* controller);
       
       int act(GameLevel* level, EventListener* listener);
+      
+      int addTransparency(int r, int g, int b);
 
    private:
       int x, y;

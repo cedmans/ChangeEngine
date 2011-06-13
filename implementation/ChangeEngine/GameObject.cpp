@@ -167,3 +167,13 @@ int GameObject::act(GameLevel* level, EventListener* listener) {
    
    return EENGINE_SUCCESS;
 }
+
+int GameObject::addTransparency(int r, int g, int b) {
+   
+   if (avatar->addTransparency(r,g,b) != EENGINE_SUCCESS) {
+      
+      return EENGINE_FAILURE;
+   }
+   
+   return EENGINE_SUCCESS;
+}
