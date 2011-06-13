@@ -14,6 +14,7 @@ int main(int argc, char** argv) {
    engine->createLevel("Level1");
    engine->createGameObject("Level1","Object1");
    engine->attachImageToGameObject("Level1","Object1","spaceship.png",37,32);
+   engine->addTransparency("Level1","Object1",255,255,255);
    engine->attachControllerToGameObject("Level1","Object1",(GameController*)(new KeyboardController()));
    
    int event, key;

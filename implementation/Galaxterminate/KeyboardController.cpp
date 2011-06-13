@@ -13,25 +13,39 @@ void KeyboardController::act(GameLevel* level, GameObject* object, EventListener
    
    event = listener->getEvent();
    
-   switch( event ) {
+   //switch( event ) {
       
-      case CE_KEYDOWN:
+      //case CE_KEYDOWN:
 	 
-	 key = listener->getKey();
+	 //key = listener->getKey();
 	 
-	 switch( key ) {
+	 //switch( key ) {
 	    
-	    case CE_KB_RIGHT:
-	       object->setX(object->getX() + 10);
-	       break;
-	    case CE_KB_LEFT:
-	       object->setX(object->getX() - 10);
-	       break;
+	    //case CE_KB_RIGHT:
+	       //object->setX(object->getX() + 1);
+	       //break;
+	    //case CE_KB_LEFT:
+	       //object->setX(object->getX() - 1);
+	       //break;
 	    
-	    default:
-	       break;
-	 }      
-      default:
-	 break;
+	    //default:
+	       //break;
+	 //}      
+      //default:
+	 //break;
+   //}
+   
+   if (event == CE_KEYDOWN) {
+      
+      key = listener->getKey();
+      
+      if (key == CE_KB_RIGHT)
+	 object->setX(object->getX() + 1);
+      if (key == CE_KB_LEFT)
+	 object->setX(object->getX() - 1);
+      if (key == CE_KB_DOWN)
+	 object->setY(object->getY() + 1);
+      if (key == CE_KB_UP)
+	 object->setY(object->getY() - 1);	 
    }
 }
