@@ -13,28 +13,8 @@ void KeyboardController::act(GameLevel* level, GameObject* object, EventListener
    
    event = listener->getEvent();
    
-   //switch( event ) {
-      
-      //case CE_KEYDOWN:
-	 
-	 //key = listener->getKey();
-	 
-	 //switch( key ) {
-	    
-	    //case CE_KB_RIGHT:
-	       //object->setX(object->getX() + 1);
-	       //break;
-	    //case CE_KB_LEFT:
-	       //object->setX(object->getX() - 1);
-	       //break;
-	    
-	    //default:
-	       //break;
-	 //}      
-      //default:
-	 //break;
-   //}
-   
+   //There's probably a much better way of doing this that will allow simultaneous key presses.
+   //My demo isn't here to prove that bit of the puzzle.   
    if (event == CE_KEYDOWN) {
       
       key = listener->getKey();
