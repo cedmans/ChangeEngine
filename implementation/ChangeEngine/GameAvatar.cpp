@@ -79,8 +79,8 @@ int GameAvatar::drawObject(GameWindow* window, int x, int y, int state, int fram
    SDL_Rect *dstrect = new SDL_Rect();
    
    //Position the crop rect around the frame we want
-   srcrect->x = frame*tileWidth;
-   srcrect->y = state*tileHeight;
+   srcrect->x = state*tileWidth;
+   srcrect->y = frame*tileHeight;
    srcrect->w = tileWidth;
    srcrect->h = tileHeight;
    

@@ -307,3 +307,8 @@ int ChangeEngine::addTransparency(const char* level, const char* object, int r, 
    
    return EENGINE_SUCCESS;
 }
+
+GameLevel* ChangeEngine::getLevel(const char* level) {
+   
+   return levels[level];
+}

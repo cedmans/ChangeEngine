@@ -7,6 +7,11 @@
 
 #include "GameLevel.hpp"
 
+GameLevel::GameLevel() {
+   
+   width = height = 0;
+}
+
 void GameLevel::Destroy(GameLevel* level) {
 
    #ifdef DEBUG
@@ -154,4 +159,20 @@ int GameLevel::addTransparency(const char* object, int r, int g, int b) {
    }
    
    return EENGINE_SUCCESS;
+}
+
+void GameLevel::setWidth(int w) {
+   width = w;
+}
+
+void GameLevel::setHeight(int h) {
+   height = h;
+}
+
+int GameLevel::getWidth() {
+   return height;
+}
+
+int GameLevel::getHeight() {
+   return width;
 }

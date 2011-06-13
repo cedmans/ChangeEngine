@@ -151,6 +151,8 @@ class ChangeEngine {
        */
       int addTransparency(const char* level, const char* object, int r, int g, int b);
       
+      GameLevel* getLevel(const char* level);
+      
    private:
 
       /**

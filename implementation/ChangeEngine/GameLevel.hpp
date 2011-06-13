@@ -30,8 +30,12 @@ class GameLevel {
        * Array of game objects being handled by this engine.
        */
       std::map<std::string, GameObject*> objects;
+      
+      int width, height;
    
    public:
+   
+      GameLevel();
    
       /**
        * Destroy the given level and all managed objects therein.
@@ -69,6 +73,12 @@ class GameLevel {
       int actObjects(EventListener* listener);
       
       int addTransparency(const char* object, int r, int g, int b);
+      
+      void setWidth(int w);
+      void setHeight(int h);
+      
+      int getWidth();
+      int getHeight();
 };
 
 #endif /* _GAMELEVEL_HPP */
