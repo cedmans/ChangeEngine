@@ -11,6 +11,7 @@ Advised by Dr. Michael Haungs\\\\}
 \usepackage{enumerate}
 \usepackage{amsmath}
 \usepackage{listings}
+\usepackage{graphicx}
 
 \begin{document}
   
@@ -114,6 +115,18 @@ The implementation of this function can be as simple as moving the object back a
 
 \subsubsection{User Interaction}
 The controller object also allows the programmer to have the user interact directly with the object. The reason the EventListener is included in the function is to make the object aware of events such as keypresses or mouse clicks and act accordingly.
+
+\subsection{Sequence Diagrams}
+The following diagrams show the general sequence of events using the managed engine to run a game.
+
+\subsubsection{Initialization}
+\includegraphics[width=5.9in]{init.png}
+
+\subsubsection{Game Loop}
+\includegraphics[width=5.9in]{loop.png}
+
+\subsubsection{Destruction of Engine}
+\includegraphics[width=4in]{destroy.png}
 
   \section{Design and Implementation}
     ChangeEngine will fulfill the following software requirements:
