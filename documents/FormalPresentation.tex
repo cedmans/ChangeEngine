@@ -8,6 +8,11 @@ San Luis Obispo, CA\\\\
 Advised by Dr. Michael Haungs\\\\}
 \date{\today}
 
+    %%%%%%%%%%%%%%%%%%%%%%%%%
+    % via http://www.latex-community.org/forum/viewtopic.php?f=5&t=968 %
+    %%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[absolute]{textpos}
+
 \usepackage{enumerate}
 \usepackage{amsmath}
 \usepackage{listings}
@@ -54,6 +59,29 @@ Advised by Dr. Michael Haungs\\\\}
 
   \section{Game Engine}
     The game engine supports two main ways of implementing its classes: managed and unmanaged.
+
+\pagebreak
+\subsection{Class Diagrams}
+%% NONONONONONO Simplify this with a CLOUD thing, and put this in Design & Implementation
+The following shows the association of classes in the ChangeEngine.
+
+\hspace*{-1.3in}
+\includegraphics[width=7.5in]{class-diagram.jpg}
+
+\pagebreak
+
+\subsection{Sequence Diagrams}
+The following diagrams show the general sequence of events using the managed engine to run a game. Take note that this sequence is based off of the Galaxterminate demo, which I believe best exemplifies the order of events for this engine.
+
+\subsubsection{Initialization}
+\includegraphics[width=5.9in]{init.png}
+
+\subsubsection{Game Loop}
+\includegraphics[width=5.9in]{loop.png}
+
+\subsubsection{Destruction of Engine}
+\includegraphics[width=4in]{destroy.png}
+
 \subsection{Managed Engine}
 The managed engine provides memory management benefits and ease of use at the cost of flexibility to the user. Everything the programmer creates or instantiates will be done through the overarching game engine class.
 
@@ -116,19 +144,16 @@ The implementation of this function can be as simple as moving the object back a
 \subsubsection{User Interaction}
 The controller object also allows the programmer to have the user interact directly with the object. The reason the EventListener is included in the function is to make the object aware of events such as keypresses or mouse clicks and act accordingly.
 
-\subsection{Sequence Diagrams}
-The following diagrams show the general sequence of events using the managed engine to run a game.
-
-\subsubsection{Initialization}
-\includegraphics[width=5.9in]{init.png}
-
-\subsubsection{Game Loop}
-\includegraphics[width=5.9in]{loop.png}
-
-\subsubsection{Destruction of Engine}
-\includegraphics[width=4in]{destroy.png}
-
   \section{Design and Implementation}
+%THE BIGGEST PART OF THE PROJECT
+%class choices, flexibility, maintainability, what I plan to do, describe classes that provide the user with a nice abstraction for writing games
+%class diagram goes here
+%logical flow: explain the sequence diagram in words
+%    I felt it encapsulated things well
+%    I did 'x' NOW because... etc
+%A few words about each class: Felt this was the logical sep between common functionality and allowing whatever
+%Describe the framework
+%All figures need text to explain them. Can't substitute text with diagrams.
     ChangeEngine will fulfill the following software requirements:
 
 \begin{enumerate}
@@ -166,7 +191,35 @@ The following diagrams show the general sequence of events using the managed eng
 
     To test the engine's managed object framework, I would run through a loop of progressively more objects (tens, hundreds, thousands, tens of thousands, etc.) and log the amount of time the game engine takes to create the objects, use the objects functions (such as attaching images and using the controllers on every loop), and destroy the objects.
 
+    Controllers of the same class should be placed on multiple objects to see how they handle. How many artificial intelligence units of the same type can work on several thousand units before the system lags? This is more a task for the implementer of the class to make sure his algorithm is not too burdensome on the system.
+
   \section{Related Work}
+%2D and 3D engine mentions: source, directx, sdl, klik 'n' play
+
+In studying for construction of this engine, I have looked at many engines, the standout being the Source Engine because of its organizational design.
+
+\subsection{Source Engine}
+\begin{itemize}
+ \item Levels: Each scene is modularized into levels. I used this concept to contain all objects inside of a level, and have the programmer manage which level is being drawn or operated on at the time.
+ \item Connected Areas: Doors, teleporters, etc. are used to connect scenes. I wish I had time to implement this, as it would make level handling easier for the engine. (At the moment the engine only handles levels as individual units with no connection between them) My hope is that future development will involve this feature.
+ \item Nodes: AI in the Source Engine uses ``Nodes'' to tell an entity how to react to its environment, among other things. I have simplified this concept in my implementation, giving the Controller full view of the Level and forcing the programmer to define all interactions with it.
+\end{itemize}
+
+\subsection{Klik}
+This development suite, first known as Klik \& Play, is a very simplified way of making a game via a WYSIWYG interface. Despite its apparent simplicity, it had much influence in this engine.
+
+\begin{itemize}
+ \item Object modularization: Each active object is its own unit with all properties unique to it. This seems straightforward, but merits mention in terms of why I thought of it.
+ \item Per-object Control: Each object has an independent controller, be it via keyboard input, predefined paths, or more complex AI. The idea of making the universal GameController comes from this concept, since each object, at a very general level, is merely controlled by something, be it input or some level of artificial intelligence.
+\end{itemize}
+
+\subsection{DirectX}
+DirectX is an extremely complex library set to make hardware interactions easier. Apart from that complexity being the driving force behind wanting to create a simplified engine between it and the programmer, a few organizational influences come out of it.
+
+\begin{itemize}
+ \item DirectX Object: This begins all interactions with the libraries, and any other objects or properties come only out of this object. I took this idea, and while I leave open the possibility of the programmer managing objects in the engine by himself, my managed ChangeEngine object follows the same principle.
+\end{itemize}
+
 
   \section{Conclusions}
     The programmer must be careful to ensure his usage of this class's available functions is logical.
