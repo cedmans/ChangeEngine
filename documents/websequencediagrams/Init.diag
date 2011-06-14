@@ -1,0 +1,27 @@
+App->ChangeEngine: Initialize
+
+App->ChangeEngine: Create Window
+ChangeEngine->GameWindow: Create Window
+
+App->ChangeEngine: Create Level
+ChangeEngine->GameLevel: Constructor
+
+
+App->ChangeEngine: Create Game Object
+ChangeEngine->GameLevel: Create Game Object
+GameLevel->GameObject: Constructor
+
+App->ChangeEngine: Attach Image to Object
+ChangeEngine->GameLevel: Attach Image to Object
+GameLevel->GameObject: Attach Image
+GameObject->GameAvatar: Attach Image
+
+App->ChangeEngine: Add Transparency to Object
+ChangeEngine->GameLevel: Add Transparency to Object
+GameLevel->GameObject: Add Tranparency
+GameObject->GameAvatar: Add Transparency
+
+App->ChangeEngine: Add Controller to Object
+ChangeEngine->GameLevel: Add Controller
+GameLevel->GameObject: Add Controller
+GameObject-->GameController: Use Custom Class

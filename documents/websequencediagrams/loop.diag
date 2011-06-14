@@ -1,0 +1,22 @@
+App->ChangeEngine: Draw Start
+note left of App: Do over loop
+ChangeEngine->GameWindow: Clear Buffer
+App->ChangeEngine: Draw Object
+ChangeEngine->GameLevel: Draw Object
+GameLevel->GameObject: Draw Object
+GameObject->GameAvatar: Draw
+GameAvatar->GameWindow: Draw Me
+App->ChangeEngine: Finish Draw
+ChangeEngine->GameWindow: Flip Backbuffer to Front
+
+App->ChangeEngine: Poll Events
+App->EventListener: Get Event
+note left of App: Act on Events
+
+App->ChangeEngine: Act Controller on Objects
+ChangeEngine->GameLevel: Act Controller on Objects
+GameLevel->GameObject: Act Controller
+GameObject->GameController: Act
+GameController->GameLevel: Get Info
+GameController->GameObject: Get Info
+GameController->EventListener: Get Info

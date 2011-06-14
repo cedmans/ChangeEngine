@@ -1,0 +1,10 @@
+App->ChangeEngine: Destroy
+ChangeEngine->GameWindow: Destroy
+ChangeEngine->GameLevel: Destroy
+GameLevel->GameObject: Destroy
+GameObject->GameAvatar: Destroy
+destroy GameAvatar
+destroy GameObject
+destroy GameLevel
+destroy GameWindow
+destroy ChangeEngine
