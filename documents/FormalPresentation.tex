@@ -8,9 +8,6 @@ San Luis Obispo, CA\\\\
 Advised by Dr. Michael Haungs\\\\}
 \date{\today}
 
-    %%%%%%%%%%%%%%%%%%%%%%%%%
-    % via http://www.latex-community.org/forum/viewtopic.php?f=5&t=968 %
-    %%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage[absolute]{textpos}
 
 \usepackage{enumerate}
@@ -249,11 +246,11 @@ GameObject contains a GameAvatar. This class is meant to be specific to the hand
     This project will primarily be programmed by Cedric Wienold using various programming environments supporting C++ code. Teamwork will be limited to interviews with industry professionals concerning algorithms and class organization advice.
 
   \section{Analysis}
-    Testing this engine is an important way of determining if its current programming is at all useful for programmers.
+    Testing this engine is an important way of determining if its current programming is at all useful for programmers. As is the habit with game engines, frame rate (usually measured in frames-per-second) is a good way of measuring performance. It is a trivial task to check whether a second has passed over a recurring loop, and count frames over that amount of time.
 
     To test the engine's managed object framework, I would run through a loop of progressively more objects (tens, hundreds, thousands, tens of thousands, etc.) and log the amount of time the game engine takes to create the objects, use the objects functions (such as attaching images and using the controllers on every loop), and destroy the objects.
 
-    Controllers of the same class should be placed on multiple objects to see how they handle. How many artificial intelligence units of the same type can work on several thousand units before the system lags? This is more a task for the implementer of the class to make sure his algorithm is not too burdensome on the system.
+    Controllers of the same class should be placed on multiple objects to see how they handle. How many artificial intelligence units of the same type can work on several thousand units before the system lags? This is more a task for the implementer of the class to make sure his algorithm is not too burdensome on the system, however if the programmer writes a simple AI unit to attach to multiple units, performance based on multiple calls to this same function could be measured.
 
   \section{Related Work}
 %2D and 3D engine mentions: source, directx, sdl, klik 'n' play
@@ -286,7 +283,7 @@ DirectX is an extremely complex library set to make hardware interactions easier
   \section{Conclusions}
     The programmer must be careful to ensure his usage of this class's available functions is logical.
 \subsection{ChangeEngine}
-\begin{verbatim*}pollEvents()\end{verbatim*} should only be called once per loop to ensure that multiple functions depending on the same event are not deprived of it because they did not act on the event quickly enough.
+\begin{verbatim*}pollEvents()\end{verbatim*} should be looped through as long as there is anything on the buffer to collect, and the states of all available keys logged. This loop should happen every time the game loop occurs.
 \\
 
 \begin{verbatim}createWindow(int w, int h, int bpp)\end{verbatim} should only be used with sensible, non-negative values.
