@@ -61,14 +61,22 @@ Advised by Dr. Michael Haungs\\\\}
     The game engine supports two main ways of implementing its classes: managed and unmanaged.
 
 \pagebreak
-\subsection{Class Diagrams}
-%% NONONONONONO Simplify this with a CLOUD thing, and put this in Design & Implementation
-The following shows the association of classes in the ChangeEngine.
+\subsection{Class Diagram}
 
-\hspace*{-1.3in}
-\includegraphics[width=7.5in]{class-diagram.jpg}
+The following shows the interaction between the programmer, the ChangeEngine, and SDL.
+\\
+\\
+\includegraphics[width=5in]{class-overview.png}
+\\
+\\
 
-\pagebreak
+\subsubsection{Managed Style}
+
+In the Managed style of programming, ChangeEngine and its subsidiary classes all handle interactions with SDL themselves and the user need not concern himself with learning the mechanics of SDL. The programmer only interacts with the ChangeEngine class to perform game operations.
+
+\subsubsection{Unmanaged Style}
+
+In the Unmanaged style of programming, the user has the option of using any combination of ChangeEngine and its subsidiary classes, and even SDL directly to interact with those objects. The alternate line styles to GameEngine and SDL above relate to the rarity I anticipate the programmer making use of these options.
 
 \subsection{Sequence Diagrams}
 The following diagrams show the general sequence of events using the managed engine to run a game. Take note that this sequence is based off of the Galaxterminate demo, which I believe best exemplifies the order of events for this engine.
@@ -76,11 +84,42 @@ The following diagrams show the general sequence of events using the managed eng
 \subsubsection{Initialization}
 \includegraphics[width=5.9in]{init.png}
 
+The sequence of initialization of a standard game in a managed style is as follows:
+
+\begin{enumerate}
+ \item Programmer initializes ChangeEngine
+ \item Programmer creates GameWindow from ChangeEngine
+ \item ChangeEngine creates GameWindow
+ \item Programmer creates GameLevel from ChangeEngine
+ \item ChangeEngine creates GameLevel
+ \item Programmer creates GameObject from ChangeEngine
+ \item ChangeEngine calls GameLevel to create GameObject
+ \item GameLevel creates GameObject
+\end{enumerate}
+
+The above shows the chaining together of different tasks from the ChangeEngine through its subsidiary classes. This is done to enable an unmanaged user to use any subsidiary class in the same way that the ChangeEngine would.
+
+Giving extra properties to those GameObjects in the form of images and controllers is also demonstrated above. In the same way, each command to GameEngine goes through a chain to public functions in each subsidiary class to attach images to an object or attach a controller to an object.
+
 \subsubsection{Game Loop}
 \includegraphics[width=5.9in]{loop.png}
 
+The game loop is done repeatedly over a level using either an infinite loop, a timer, threads, or some combination of those.
+
+The programmer starts the drawing process through ChangeEngine, which calls on GameWindow to clear the backbuffer. The programmer then draws all objects to the backbuffer through ChangeEngine, which progresses the command through the chain to GameAvatar, which calls on GameWindow to draw the image stored in the GameAvatar.
+
+When the programmer is finished drawing objects to the backbuffer, he calls on ChangeEngine to finish drawing, which flips the backbuffer to the front buffer. ChangeEngine will then call on GameWindow to complete this process. This should only be done once, in this sequence, as multiple calls to flip the backbuffer in the same loop can result flickering.
+
+The programmer uses ChangeEngine to poll the engine for events, such as keypresses and the like. After this, the programmer must get the EventListener from the ChangeEngine and use it to grab an integer value for whatever event has just occurred. In the future, this will ideally be accessible through ChangeEngine itself.
+
+The programmer then uses the event integer value to decide what to do with that event. The event can take the form of window actions (like clicking the close button), key presses, and mouse buttons.
+
+The decision of what an object will do is done through the controllers that the programmer attached to the object in the initialization step. The user calls on ChangeEngine to act on all objects with a controller in that level, and GameLevel calls on all of its objects correspondingly to act with their GameController classes. The programmer's implementation of these classes will use any or none of the level, object, and event listener information.
+
 \subsubsection{Destruction of Engine}
 \includegraphics[width=4in]{destroy.png}
+
+Destruction of a managed engine is designed to be simple. The programmer calls on ChangeEngine to destroy itself. The ChangeEngine then calls on each level to destroy itself, which in turn calls on each object to destroy itself, which in turn calls on each applicable avatar to destroy itself. The ChangeEngine will also destroy its GameWindow. The programmer is ideally left with a clean slate of memory.
 
 \subsection{Managed Engine}
 The managed engine provides memory management benefits and ease of use at the cost of flexibility to the user. Everything the programmer creates or instantiates will be done through the overarching game engine class.
@@ -154,7 +193,10 @@ The controller object also allows the programmer to have the user interact direc
 %A few words about each class: Felt this was the logical sep between common functionality and allowing whatever
 %Describe the framework
 %All figures need text to explain them. Can't substitute text with diagrams.
-    ChangeEngine will fulfill the following software requirements:
+
+\subsection{Requirements}
+
+ChangeEngine will fulfill the following software requirements:
 
 \begin{enumerate}
   \item General Requirements
@@ -182,6 +224,26 @@ The controller object also allows the programmer to have the user interact direc
   \end{enumerate}
 
 \end{enumerate}
+
+\subsection{Class Diagram}
+
+\hspace*{-1in}
+\includegraphics[width=7in]{class-diagram.jpg}
+\\
+The class diagram shows a comaprably simple relationship between all the classes of the game engine. The entire ChangeEngine project (thus far) is comprised of several classes: ChangeEngine, GameWindow, GameLevel, GameObject, GameAvatar, and EventListener. The ChangeEngine class contains three of these: an EventListener, a GameWindow, and an array of GameLevels.
+
+ChangeEngine makes direct use of GameWindow, EventListener, and GameLevel. The EventListener is kept at a close level to the programmer so that it is easy to obtain from the ChangeEngine class when the user requires direct access to it, which currently is necessary.
+
+GameWindow is located at this level because a single instance of it is a universal requirement for all subsidiary classes to draw output to the screen.
+
+The array of GameLevels is the last piece of the puzzle, existing because GameObjects can live under it and because it helps the programmer organize scenes into levels without concerning himself about stray objects that are not related with the current scene.
+
+GameLevels, as mentioned, manage arrays of GameObjects. Each GameObject has a null-valued GameController pointer, which will point to a class created by the programmer which inherits GameController. That class will control the movement or actions of the object. If the GameController pointer remains null, it will not be controlled by anything.
+
+GameController takes in a GameLevel, the current GameObject to act on, and an EventListener. This is done to maximize exposure to a GameObject's environment and allow the user to directly handle events from the engine. Specifying the GameObject in the act() function is done to allow the same GameController implementation to control several objects.
+
+GameObject contains a GameAvatar. This class is meant to be specific to the handling of ChangeEngine, in that it manages tile sets and eventually ChangeEngine should handle nextFrame() functions itself so the programmer would not need to handle loop conditions themselves.
+
 
   \section{Tools and Teamwork}
     This project will primarily be programmed by Cedric Wienold using various programming environments supporting C++ code. Teamwork will be limited to interviews with industry professionals concerning algorithms and class organization advice.
